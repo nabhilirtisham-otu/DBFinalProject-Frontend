@@ -1,0 +1,25 @@
+<!--
+User dashboard with chart and filters
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="./css/style.css"/>
+    </head>
+    <body>
+        <h2>Your Dashboard</h2>
+        <!--logout button-->
+        <button onclick="logout()">Logout</button>
+
+        <h3>Event Analytics</h3>
+        <!--canvas element for graphics-->
+        <canvas id="eventChart"></canvas>
+
+        <!--scripts for the chart minified file, authorization, and chart-->
+        <script src="./libs/chart.min.js"></script>
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/charts.js"></script>
+    </body>
+</html>
