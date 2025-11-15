@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login | Event manager</title>
+        <link rel="stylesheet" href="./css/style.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <!--email and password must be provided before submission-->
+                <input type="email" id="email" placeholder="Email" required /><br>
+                <input type="password" id="pwd" placeholder="Password" required /><br>
+                <button type="submit">Login</button>
+            </form>
+            <!--display message regarding login status (if unsuccessful, display to user)-->
+            <p id="loginMsg"></p>
+        </div>
+        <script src="./jsFiles/auth.js"></script>
+    </body>
+</html>
