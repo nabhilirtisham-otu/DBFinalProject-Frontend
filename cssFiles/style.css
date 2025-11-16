@@ -83,3 +83,8 @@ footer {
 	/*background-color: var(--flax);*/
 	margin-top: 30%;
 }
+
+.login_container {
+    text-align: center;
+    
+}
