@@ -1,3 +1,7 @@
+<!--
+Page for selecting displaying views
+-->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,17 +14,31 @@
         <h2>Database Views</h2>
         <button onclick="logout()">Logout</button>
 
+        <!--Dropdown menue of views-->
         <select id="viewSelect">
             <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
-            <option value="1">View 1 - Customer Orders</option>
+            <option value="2">View 2 - Database Users</option>
+            <option value="3">View 3 - Event Categories</option>
+            <option value="4">View 4 - Event Sales</option>
+            <option value="5">View 5 - Event Ticket Details</option>
+            <option value="6">View 6 - Full Event Payments</option>
+            <option value="7">View 7 - High Priced Events</option>
+            <option value="8">View 8 - Organizer Revenue</option>
+            <option value="9">View 9 - Unread Notifications</option>
+            <option value="10">View 10 - Upcoming Performances</option>
         </select>
+
+        <!--Display the selected view-->
+        <button onclick="runView()">Run View</button>
+
+        <!--Table displaying view information-->
+        <table id="viewTable">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+
+        <!--Scripts for authorization and displaying views-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/views.js"></script>
     </body>
 </html>
