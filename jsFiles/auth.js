@@ -22,7 +22,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async(e)=>{    
     const login = await login(email, password);         //Login by calling the login function and using the provided email and password
 
     if(result.message?.includes("Success")){
-        window.location.href = "./dashboard.html";      //If login is a success, proceed to the dashboard page
+        window.location.href = "./userDashboard.html";      //If login is a success, proceed to the dashboard page
     } else{
         document.getElementById("loginMsg").txtContent = "Invalid credentials. Please try again.";      //Otherwise, display an error message.
     }
