@@ -32,3 +32,39 @@ export function hideLoadingScreen(){
     }
 }
 
+export function liveFieldValidation(inputID, validationFunc){
+    const field = document.getElementById(inputID);              //Retrieve input field element
+    if (!inID) return;                                          //Error handling
+
+    field.addEventListener("input", () => {                     //Triggers every time user types in input
+        if (validationFunc(field.value)) {                      //Check field value according to the validation function
+            field.classList.remove("error");                    //If successful, remove error CSS class and add valid CSS class
+            field.classList.add("valid");
+        } else {
+            field.classList.add("error");                       //Opposite of above
+            field.classList.remove("valid");
+        }
+    });
+}
+
+export function autoSuggest(inputID, inValues = []){        //Enable autocomplete suggestions
+    const input = document.getElementById(inputID);
+
+    if (!input) return;                             //Error handling
+    const datalistID = `${inputID}_list`;           //Create ID to attach <datalist> to provided field
+    let list = document.getElementById(datalistID)      //Check if datalist element exists
+    
+    if (!list){                                     //If not
+        list = document.createElement("datalist");      //Create new <datalist>
+        list.id = datalistID;                           //Attach generated ID to it
+        document.body.appendChild(list);                //Add to DOM
+        input.setAttribute("list", datalistID);         //Link input field to datalist for suggestions
+    }
+    list.innerHTML="";                                  //Clear old suggestions
+
+    inValues.forEach(v => {                                 //Loop through suggestion values
+        const option = document.createElement("option");        //Create new <option>
+        option.value = v;                                   //Set option value as the value being iterated over
+        list.appendChild(option);                           //Add option to datalist
+    });
+}

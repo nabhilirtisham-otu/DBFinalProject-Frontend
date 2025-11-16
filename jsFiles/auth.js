@@ -33,7 +33,7 @@ async function logout(){                                //Logout function
         method: "POST",                                 //Post to change session state
         credentials: "include"                          //Send server session cookies
     });
-    window.location.href = "index.html";                //Return to the login page after logout
+    window.location.href = "login.html";                //Return to the login page after logout
 }
 
 async function requireAuth(){                           //Used on protected pages to authenticate user
