@@ -1,0 +1,46 @@
+<!--
+Organizer page for managing tickets.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Tickets</title>
+    </head>
+    <!--Perform authorization and load tickets when the page loads-->
+    <body onload="requireAuth(); loadTickets();">
+
+        <h2>Ticket Management</h2>
+        <button onclick="logout()">Logout</button>
+
+        <!--Add a new ticket-->
+        <div>
+            <h3>Add Ticket</h3>
+            <form id="ticketForm">
+                <input type="number" id="seat_id" placeholder="Seat ID">
+                <input type="number" id="seat_id" placeholder="Seat ID">
+                <button type="submit">Add Ticket</button>
+            </form>
+        </div>
+
+        <!--Display current tickets-->
+        <h3>Tickets</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Seat</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="ticketList"></tbody>
+        </table>
+
+        <!--Scripts for authorization and ticket display-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/tickets.js"></script>
+    </body>
+</html>

@@ -57,4 +57,4 @@ document.getElementById("editForm").addEventListener("submit", async (e) => {   
     });
 
     window.location.href="orgDashboard.html";                   //Redirect to dashboard and reload page
-})
+});
