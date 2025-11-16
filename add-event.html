@@ -1,0 +1,53 @@
+<!--
+Create and add new events (organizers only)
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Add Event</title>
+    </head>
+    <body onload="requireAuth(); loadVenues()">
+        <h2>Create New Event</h2>
+        <button onclick="logout()">Logout</button>
+
+        <form id="eventForm">
+
+            <!--Dropdown list of venues-->
+            <label>Venue:</label>
+            <select id="venue_id"></select><br>
+
+            <!--Event name-->
+            <input type="text" id="title" placeholder="Enter event title..."><br><br>
+
+            <!--Event description-->
+            <textarea id="event_description" placeholder="Describe your event..."></textarea><br><br>
+
+            <!--Event starting time-->
+            <label>Start Time:</label>
+            <input type="datetime-local" id="start_time"><br><br>
+
+            <!--Event ending time-->
+            <label>End Time:</label>
+            <input type="datetime-local" id="end_time"><br><br>
+
+            <!--Event price-->
+            <input type="number" id="standard_price" placeholder="Event standard price..."><br><br>
+
+            <!--Event status-->
+            <label>Status:</label>
+            <select id="event_status">
+                <option value="Scheduled">Scheduled</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <!--Submit button-->
+            <button type="submit">Create Event</button>
+        </form>
+
+        <!--Scripts for authentication and adding events-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFIles/add-event.js"></script>
+    </body>
+</html>
