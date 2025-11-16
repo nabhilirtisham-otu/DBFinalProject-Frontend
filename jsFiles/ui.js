@@ -1,84 +1,29 @@
 /*
-Enables user interaction, controls visual behavior, holds UI helpers
+Global UI helper functions
 */
 
-export function showMessage(msg, type="info"){                      //Function to display text
-    const msgBox = document.getElementById("statusMessage");        //msgBox declaration
-
-    if (!box){
-        return console.warn("No #statusMessage element found.");    //Error handling
-    }
-
-    msgBox.textContent = msg;                                   //msgBox text is set to the message information provided
-    msgBox.className = `message ${type}`;                       //msgBox class name is set to the provided type (used in CSS styling)
-
-    setTimeout(() => {                                      //Timer running code after four seconds
-        box.textContent = "";                               //Reset message box content
-        box.className = "message";                          //Reset message box type style
-    }, 4000);
-}
-
-export function showLoadingScreen(){                            //Loading screen display
-    const loader = document.getElementById("loader") ;      //Retrieve loader element
-    if (loader){
-        loader.style.display = "block";                     //Set loader CSS display property as block
-    }
-}
-
-export function hideLoadingScreen(){
-    const loader = document.getElementById("loader") ;      //Retrieve loader element
-    if (loader){
-        loader.style.display = "none";                     //Hides loader element
-    }
-}
-
-export function liveFieldValidation(inputID, validationFunc){
-    const field = document.getElementById(inputID);              //Retrieve input field element
-    if (!inID) return;                                          //Error handling
-
-    field.addEventListener("input", () => {                     //Triggers every time user types in input
-        if (validationFunc(field.value)) {                      //Check field value according to the validation function
-            field.classList.remove("error");                    //If successful, remove error CSS class and add valid CSS class
-            field.classList.add("valid");
-        } else {
-            field.classList.add("error");                       //Opposite of above
-            field.classList.remove("valid");
+(function () {                  //Keep internal variables private and global namespace clean
+    const defaultTimeout = 4000;            //Default message timout of 4 seconds
+    window.showMessage = function (message, type="info", timeout=defaultTimeout) {          //Global function to show message
+        let messageBox = document.getElementById("statusMessage");          //Find statusMessage <div> box to display message
+        if (!messageBox) {                                      //Create a message box if not found
+            messageBox = document.createElement("div");
+            messageBox.id = "statusMessage";
+            messageBox.className = "message";
+            messageBox.style.position = "fixed";                //Box positioning settings
+            messageBox.style.top = "10px";
+            messageBox.style.right = "10px";
+            messageBox.style.zIndex = 9999;
+            document.body.appendChild(messageBox);              //Add message box to page
         }
-    });
-}
 
-export function autoSuggest(inputID, inValues = []){        //Enable autocomplete suggestions
-    const input = document.getElementById(inputID);
+        messageBox.textContent = message;               //Set message box content and type using passed-in parameters
+        messageBox.className = `message ${type}`;
+        clearTimeout(messageBox._timeoutId);            //Cancel existing hide-timers
 
-    if (!input) return;                             //Error handling
-    const datalistID = `${inputID}_list`;           //Create ID to attach <datalist> to provided field
-    let list = document.getElementById(datalistID)      //Check if datalist element exists
-    
-    if (!list){                                     //If not
-        list = document.createElement("datalist");      //Create new <datalist>
-        list.id = datalistID;                           //Attach generated ID to it
-        document.body.appendChild(list);                //Add to DOM
-        input.setAttribute("list", datalistID);         //Link input field to datalist for suggestions
-    }
-    list.innerHTML="";                                  //Clear old suggestions
-
-    inValues.forEach(v => {                                 //Loop through suggestion values
-        const option = document.createElement("option");        //Create new <option>
-        option.value = v;                                   //Set option value as the value being iterated over
-        list.appendChild(option);                           //Add option to datalist
-    });
-}
-
-export function disableButton(bID){                         //Disable button
-    const btn = document.getElementById(bID);               //Find button using ID, assign to btn
-    if (btn){                                               //Disable button
-        btn.disabled = true;
-    }
-}
-
-export function enableButton(bID){                         //Enable button
-    const btn = document.getElementById(bID);               //Find button using ID, assign to btn
-    if (btn){                                               //Enable button
-        btn.disabled = false;
-    }
-}
+        messageBox._timeoutId = setTimeout(() => {      //Time to hide message, then clean text and reset message box class
+            messageBox.textContent = "";
+            messageBox.className = "message";
+        }, timeout);
+    };
+})
