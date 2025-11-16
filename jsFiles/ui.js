@@ -68,3 +68,17 @@ export function autoSuggest(inputID, inValues = []){        //Enable autocomplet
         list.appendChild(option);                           //Add option to datalist
     });
 }
+
+export function disableButton(bID){                         //Disable button
+    const btn = document.getElementById(bID);               //Find button using ID, assign to btn
+    if (btn){                                               //Disable button
+        btn.disabled = true;
+    }
+}
+
+export function enableButton(bID){                         //Enable button
+    const btn = document.getElementById(bID);               //Find button using ID, assign to btn
+    if (btn){                                               //Enable button
+        btn.disabled = false;
+    }
+}
