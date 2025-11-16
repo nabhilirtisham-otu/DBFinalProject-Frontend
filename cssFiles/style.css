@@ -1,0 +1,29 @@
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: #fafa6e
+}
+
+.container {
+    width: 300px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+}
+
+button {
+    padding: 8px;
+    cursor: pointer;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    background: #fff;
+}
