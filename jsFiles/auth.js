@@ -15,7 +15,29 @@ document.getElementById("loginForm")?.addEventListener("submit", async(e)=>{    
 
     const email = document.getElementById("email").value;       //Read password and email inputs
     const password = document.getElementById("pwd").value;
-    const login = await login(email, password);         //Login using the provided email and password
+    const login = await login(email, password);         //Login by calling the login function and using the provided email and password
 
-    
-})
+    if(result.message?.includes("Success")){
+        window.location.href = "./dashboard.html";      //If login is a success, proceed to the dashboard page
+    } else{
+        document.getElementById("loginMsg").txtContent = "Invalid credentials. Please try again.";      //Otherwise, display an error message.
+    }
+});
+
+async function logout(){                                //Logout function
+    await fetch(`${apiBase}/api/auth/logout`,{          //Send the backend a logout request
+        method: "POST",                                 //Post to change session state
+        credentials: "include"                          //Send server session cookies
+    });
+    window.location.href = "index.html";                //Return to the login page after logout
+}
+
+async function requireAuth(){                           //Used on protected pages to authenticate user
+    const response = await fetch(`${apiBase}/api/auth/session`, {       //Check if the current user session is valid
+        credentials: "include"                          //Send server cookies to check user
+    });
+
+    if (response.status !== 200){                       //Check if the response is a success
+        window.location.href = "index.html";            //If not, the user is sent back to login
+    }
+}
