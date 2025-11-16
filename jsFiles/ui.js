@@ -26,4 +26,19 @@ Global UI helper functions
             messageBox.className = "message";
         }, timeout);
     };
+
+    window.showLoadingScreen = function () {
+        let loader = document.getElementById("globalLoader");       //Search for loading overlay (pre-existing)
+        if (!loader){                                               //Create loader if not existing, definie its content, append to document, make it visible
+            loader = document.createElement("div");
+            loader.id = "globalLoader";
+            loader.innerHTML = `<div style="position:fixed;left:0;top:0;width:100%height:100%;display:flex;align-items:center;justify-content:center;background:rgba(255, 255, 255, 0.6);z-index:9998"
+                <div style="padding:20px;border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.2)">Loading...</div>
+                </div>`;
+            document.body.appendChild(loader);
+        }
+        loader.style.display = "block";
+    };
+
+    
 })
