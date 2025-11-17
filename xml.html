@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>XML Events</title>
+        <link rel="stylesheet" href="./cssFiles/style.css">
+    </head>
+    
+    <!--Perform authorization and load XML events upon page load-->
+    <body onload="requireAuth(); loadXmlEvents();">
+
+        <!--Table displaying events in XML format-->
+        <h2>Events (XML)</h2>
+        <button onclick="logout()">Logout</button>
+
+        <table id="xmlTable" style="width:100%;border-collapse:collapse;margin-top:8px;">
+            <thead>
+                <tr><th>ID</th><th>Title</th><th>Venue</th><th>City</th><th>Start</th><th>End</th><th>Price</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!--Scripts for authorization, UI functionalities, and XML display functionalities-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/ui.js"></script>
+        <script src="./jsFiles/xml.js"></script>
+    </body>
+</html>
