@@ -27,7 +27,7 @@ Global UI helper functions
         }, timeout);
     };
 
-    window.showLoadingScreen = function () {
+    window.showLoadingScreen = function () {                        //Function to show loading screen
         let loader = document.getElementById("globalLoader");       //Search for loading overlay (pre-existing)
         if (!loader){                                               //Create loader if not existing, definie its content, append to document, make it visible
             loader = document.createElement("div");
@@ -40,5 +40,15 @@ Global UI helper functions
         loader.style.display = "block";
     };
 
-    
-})
+    window.hideLoadingScreen = function () {                        //Function to hide loading screen
+        const loader = document.getElementById("globalLoader");     //Retrieve loader element
+        if (loader){
+            loader.style.display = "none";                          //Hide loader
+        }
+    };
+
+    window.formatCurrency = function (value) {                      //Function to convert a value to a number
+        const valToNum = Number(value) || 0;                        //Set value as 0 if conversion fails
+        return valToNum.toLocaleString(undefined, {style: "currency", currency: "CAD"});        //Convert number to currency format
+    };
+})();                           //Finish function, close IIFE
