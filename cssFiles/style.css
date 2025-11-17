@@ -422,3 +422,30 @@ body {
 .submit-btn:hover {
     background-color: var(--tinted-black);
 }
+
+#editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#editForm label {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: -5px;
+}
+
+#editForm input,
+#editForm select,
+#editForm textarea {
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid var(--raisin-black);
+    background-color: var(--white);
+}
+
+#editForm textarea {
+    min-height: 120px;
+    resize: vertical;
+}
