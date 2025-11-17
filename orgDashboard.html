@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Event Organizer Dashboard</title>
-        <link rel="stylesheet" href="./css/style.css">
-    </head>
+<head>
+    <title>Event Organizer Dashboard</title>
 
-    <!--Require authorization and load events when the page loads-->
-    <body onload="requireAuth(); loadOrganizerEvents();">
-        <h2>Your Dashboard</h2>
+    <!-- Main site styles -->
+    <link rel="stylesheet" href="./cssFiles/style.css">
+</head>
+
+<body onload="requireAuth(); loadOrganizerEvents();">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="orgevents.html">Events</a>
+
+        <div class="center_navbar">
+            <a href="orgDashboard.html" class="title-link"><h1>TickIt</h1></a>
+        </div>
+
         <button onclick="logout()">Logout</button>
+    </div>
 
-        <h3>Your Events</h3>
-        <!--Button to add events-->
-        <button onclick="window.location.href='add-event.html'">Add New Event</button>
+    <!-- MAIN CONTENT -->
+    <div class="main_body">
 
-        <!--Table to display events-->
-        <table id="eventTable">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>City</th>
-                    <th>Start Time</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-        </table>
+        <h2 class="dashboard-title">Your Dashboard</h2>
 
-        <!--Scripts for authorization and display/manipulating events-->
-        <script src="./jsFiles/auth.js"></script>
-        <script src="./jsFiles/organizer.js"></script>
-    </body>
+        <!-- Add Event button -->
+        <div class="add-event-container">
+            <button onclick="window.location.href='add-event.html'">Add New Event</button>
+        </div>
+
+        <h3 class="events-subtitle">Your Events</h3>
+
+        <!-- Event Table -->
+        <div class="table-wrapper">
+            <table id="eventTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>City</th>
+                        <th>Start Time</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <!-- JS will populate this -->
+                <tbody id="eventTableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/organizer.js"></script>
+
+</body>
 </html>
