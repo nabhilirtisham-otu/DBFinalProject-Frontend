@@ -278,3 +278,84 @@ body {
     background-color: var(--tinted-black);
     border-radius: 10px;
 }
+
+/* ---- Dashboard Page Enhancements (Add-On Styles Only) ---- */
+
+/* Center and style the Add New Event button */
+.add-event-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.add-event-container button {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.add-event-container button:hover {
+    background-color: var(--tinted-black);
+}
+
+/* Table wrapper styling */
+.table-wrapper {
+    overflow-x: auto;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--raisin-black);
+}
+
+/* Dashboard title */
+.dashboard-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+/* Subtitle style */
+.events-subtitle {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* ---- Event Table Spacing Improvements ---- */
+
+/* Increase padding inside table cells */
+#eventTable th,
+#eventTable td {
+    padding: 16px 24px !important; /* More breathing room */
+}
+
+/* Add more space between rows */
+#eventTable tbody tr {
+    height: 60px;  /* makes each row taller */
+}
+
+/* Light hover highlight */
+#eventTable tbody tr:hover {
+    background-color: var(--grayish);
+    transition: 0.2s;
+}
+
+/* Improve column spacing */
+#eventTable {
+    border-spacing: 0 10px; /* adds vertical gaps between rows */
+}
+
+/* Optional: round corners for rows visually */
+#eventTable tbody tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#eventTable tbody tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
