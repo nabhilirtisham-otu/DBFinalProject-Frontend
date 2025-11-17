@@ -1,42 +1,55 @@
-
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Buy Tickets</title>
-        <link rel="stylesheet" href="./cssFiles/style.css"/>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <title>Buy Tickets</title>
+    <link rel="stylesheet" href="./cssFiles/style.css"/>
+</head>
 
-    <!--Authorization and display the initial ticket buying page-->
-    <body onload="requireAuth(); initBuyPage();">
+<body onload="requireAuth(); initBuyPage();">
+    <div class="navbar">
+            <a href="userevents.html">Events</a>
+                <div class="center_navbar">
+                    <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+                </div>
+                <button onclick="logout()">Logout</button>
+	</div>
+    <div class="main_body">
+    <!-- Page Title -->
+    <h2 class="page-title">Buy Tickets</h2>
 
-        <h2>Buy Tickets</h2>
-        <button onclick="logout()">Logout</button>
+    <!-- Event Filter Box -->
+    <div class="filter-box">
+        <label for="eventSelect">Choose Event:</label>
+        <select id="eventSelect">
+            <option value="">-- Select Event --</option>
+        </select>
+    </div>
 
-        <!--Box to choose events-->
-        <div class="filter-box">
-            <label for="eventSelect">Choose Event:</label>
-            <select id="eventSelect">
-                <option value="">-- Select Event --</option>
-            </select>
-        </div>
+    <!-- Ticket Table Card -->
+    <div class="ticket-card">
+        <h3 class="ticket-title">Available Tickets</h3>
 
-        <!--Table to display available tickets-->
-        <h3>Available Tickets</h3>
-        <div>
-            <table id="ticketsTable" style="width:100%;border-collapse:collapse">
+        <div class="table-wrapper-buy">
+            <table id="ticketsTable">
                 <thead>
                     <tr>
+<<<<<<< HEAD
+=======
+                        <th>Select</th>
+>>>>>>> 8463a4f9370581056a5730edf539756b1a6a5a5e
                         <th>Seat</th>
                         <th>Section</th>
                         <th>Price</th>
                         <th>Status</th>
                     </tr>
                 </thead>
+                <tbody></tbody>
             </table>
         </div>
+    </div>
 
+<<<<<<< HEAD
         <!--Button to buy-->
         <div style="margin-top:12px">
             <strong>Total: </strong><span id="totalAmount">$0.00</span>
@@ -50,3 +63,22 @@
         <script src="./jsFiles/buyTickets.js"></script>
     </body>
 </html>
+=======
+    <!-- Footer Purchase Row -->
+    <div class="purchase-box">
+        <strong>Total: </strong>
+        <span id="totalAmount">$0.00</span>
+
+        <button id="buyBtn" onclick="buySelected()" disabled>
+            Purchase Tickets
+        </button>
+    </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/ui.js"></script>
+    <script src="./jsFiles/buyTickets.js"></script>
+</body>
+</html>
+>>>>>>> 8463a4f9370581056a5730edf539756b1a6a5a5e
