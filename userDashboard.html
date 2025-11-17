@@ -6,12 +6,53 @@ User dashboard with chart and filters
 <html>
     <head>
         <title>Dashboard</title>
-        <link rel="stylesheet" href="./css/style.css"/>
+        <link rel="stylesheet" href="./cssFiles/style.css"/>
     </head>
     <body>
+        <div class="navbar">
+            <a href="events.html">Events</a>
+            <div class="center_navbar">
+                <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+            </div>
+            <!--logout button-->
+            <button onclick="logout()">Logout</button>
+	    </div>
+    <div class="main_body">
         <h2>Your Dashboard</h2>
-        <!--logout button-->
-        <button onclick="logout()">Logout</button>
+        <h2>For all your tickiting needs</h2>
+
+        <!-- CONTENT SECTION: replace the section inside .main_body with this -->
+        <div class="content_section">
+
+            <!-- FIRST ROW: image left, text right -->
+            <div class="row">
+            <img src="images/excited-audience-watching-confetti-fireworks-having-fun-music-festival-night-copy-space_637285-559.avif"
+                alt="Concert Photo" class="home_img">
+            <p>
+            Experience unforgettable moments with tickets to concerts, sports games, theater shows, and festivals around the world. 
+            Whether it’s live music under the stars, cheering on your favorite team, or catching a Broadway hit, 
+            we make sure your events are just a click away. 
+            Discover new experiences and create memories that last a lifetime with TickIt.
+            </p>
+
+            </div>
+
+            <!-- SECOND ROW: mirrored layout (text left, image right) -->
+            <div class="row reverse">
+            <p>
+            Simply tell us where you’ll be and when, and we’ll take care of the rest. 
+            Our intuitive ticketing platform makes browsing, selecting, and purchasing tickets effortless. 
+            Enjoy a seamless experience with secure checkout, instant confirmation, and digital ticket delivery. 
+            From planning your weekend night out to attending international events, TickIt ensures every moment is extraordinary.
+            </p>
+
+            <img src="images/download.jpg" alt="Baseball Game Photo" class="home_img">
+            </div>
+
+
+        </div>
+
+    </div>
 
         <h3>Event Analytics</h3>
         <!--canvas element for graphics-->
@@ -22,4 +63,14 @@ User dashboard with chart and filters
         <script src="./jsFiles/auth.js"></script>
         <script src="./jsFiles/charts.js"></script>
     </body>
+
+    
+    <footer>
+			<div class="footerdiv">
+				<a class="footer" href="pages/aboutUs.html"> About us </a>
+				<a class="footer" href="pages/contactUs.html"> Contact us </a>
+				<a class="footer" href="pages/features.html"> Features </a>
+				<a class="footer" href="pages/terms.html"> Terms </a>
+			</div>	
+	</footer>
 </html>

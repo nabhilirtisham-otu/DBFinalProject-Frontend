@@ -210,6 +210,7 @@ body {
     font-size: 32px;
     margin-bottom: 25px;
     text-align: center;
+    margin-top: 0px;
 }
 
 /* ----- Force-safe row layout ----- */
@@ -257,4 +258,23 @@ body {
     display: flex;
     align-items: center;    /* vertically centers the text */
     border-radius: 10px;    
+}
+
+/* Navbar button styling to match links */
+.navbar button {
+    background-color: transparent;   /* same as link background */
+    color: var(--seasalt);          /* same text color */
+    font-size: 24px;                /* same as links */
+    padding: 10px 20px;             /* same padding */
+    border: 2px solid transparent;  /* match links (no visible border) */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-radius 0.3s;
+    display: inline-block;   /* makes it line up with <a> tags */
+}
+
+/* Hover effect like links */
+.navbar button:hover {
+    background-color: var(--tinted-black);
+    border-radius: 10px;
 }
