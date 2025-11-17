@@ -2,13 +2,20 @@
 <html>
     <head>
         <title>Event Organizer Dashboard</title>
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./cssFiles/style.css">
     </head>
 
     <!--Require authorization and load events when the page loads-->
     <body onload="requireAuth(); loadOrganizerEvents();">
+        <div class="navbar">
+            <a href="userevents.html">Events</a>
+            <div class="center_navbar">
+                <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+            </div>
+            <!--logout button-->
+            <button onclick="logout()">Logout</button>
+	    </div>
         <h2>Your Dashboard</h2>
-        <button onclick="logout()">Logout</button>
 
         <h3>Your Events</h3>
         <!--Button to add events-->
