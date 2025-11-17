@@ -1,0 +1,26 @@
+<!--Order confirmation page-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="uft-8" />
+        <title>Order Confirmation</title>
+        <link rel="stylesheet" href="./cssFiles/style.css"/>
+    </head>
+    
+    <!--Perform authorization and load order confirmation page upon page load-->
+    <body onload="requireAuth(); loadOrderConfirm();">
+
+        <h2>Order Confirmation</h2>
+        <button onclick="logout()">Logout</button>
+
+        <!--Hold order details-->
+        <div id="orderSummary">
+        </div>
+
+        <!--Scripts to perform authorization, UI functionalities, and confirm order information-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/ui.js"></script>
+        <script src="./jsFiles/order-confirm.js"></script>
+    </body>
+</html>
