@@ -13,7 +13,7 @@ async function loadOrganizerEvents(){
     tBody.innerHTML="";                                         //Clean existing table rows
 
     eventData.events.forEach(ev => {                            //Add event information to the table, along with buttons to edit/delete events and manage tickets
-        tBody.innherHTML += `
+        tBody.innerHTML += `
             <tr>
                 <td>${ev.title}</td>
                 <td>${ev.city}</td>
@@ -35,7 +35,7 @@ function editEvent(eventID){
 
 //Manage tickets for an event
 function manageTickets(eventID){
-    window.location.href=`tickets.html?id=${eventID}`;                  //Switch to manage tickets page
+    window.location.href=`tickets.html?event_id=${eventID}`;                  //Switch to manage tickets page
 }
 
 //Delete an event

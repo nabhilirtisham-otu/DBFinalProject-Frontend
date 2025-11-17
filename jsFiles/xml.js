@@ -11,7 +11,7 @@ async function loadXMLEvents(){
         if(!response.ok){                               //Error message if event information retrieval unsuccessful
             throw new Error("Could not fetch XML.");
         }
-        const eventText = await response.text;              //Read response body as plain text
+        const eventText = await response.text();              //Read response body as plain text
         const textParser = new DOMParser();                 //Turn XML into searchable DOM trees
         const xmlText = textParser.parseFromString(eventText, "application/xml");               //Convert XML string into XML document object
         const events = xmlText.getElementsByTagName("event");               //Return NodeList containing all <event>s

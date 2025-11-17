@@ -19,7 +19,7 @@ async function runView(){
     tBody.innerHTML="";
 
     const headers = Object.keys(viewInfo[0]);       //Get column names
-    tHead.innerHTML="<tr>" + headers.map(col => `<th>${col}</th>`.join("") + "</tr>");      //Create table row, loop over column names, create + merge HTML, insert into <thead>
+    tHead.innerHTML = "<tr>" + headers.map(col => `<th>${col}</th>`).join("") + "</tr>";      //Create table row, loop over column names, create + merge HTML, insert into <thead>
 
     viewInfo.forEach(r => {                     //For every returned row
         const rowHTML = headers.map(col => `<td>${r[col]}</td>`).join("");      //Create <td>s containing every header's actual value

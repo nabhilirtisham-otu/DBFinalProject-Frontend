@@ -1,6 +1,6 @@
 const apiBase = "http://localhost:3000";                    //Backend API base URL
 
-const urlParams = new URLSearchParams;                      //Read query parameters from URL
+const urlParams = new URLSearchParams(window.location.search);                      //Read query parameters from URL
 const eID = urlParams.get("event_id");                      //Extract event ID from URL object
 
 //Ticket retrieval and display
@@ -45,7 +45,7 @@ document.getElementById("ticketForm").addEventListener("submit", async (e) =>{  
         method: "POST",
         headers: {"Content-Type": "application/json"},
         credentials: "include",
-        body: JSON.stringify(body)
+        body: JSON.stringify(reqBody)
     });
 
     loadTickets();                                          //Reload tickets list
@@ -58,7 +58,7 @@ async function updateTicket(tID){
 
     await fetch(`${apiBase}/api/tickets/${tID}`, {          //PUT request to backend sending new ticket price and status
         method: "PUT",
-        headers: {"Content-Type": "appplication/json"},
+        headers: {"Content-Type": "application/json"},
         credentials: "include",
         body: JSON.stringify({
             ticket_price: newTicketPrice,

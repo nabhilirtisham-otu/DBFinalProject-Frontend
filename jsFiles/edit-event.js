@@ -17,7 +17,7 @@ async function loadEvent(){
 
     document.getElementById("title").value = eventInfo.title;                           //Populate form fields with event information (title, description, etc.)
     document.getElementById("event_description").value = eventInfo.event_description;
-    document.getElementById("start_time").value = eventInfo.start_time.replace(' ', 'T');       //Matches SQL format to HTML format
+    document.getElementById("start_time").value = eventInfo.start_time.replace(' ', 'T').substring(0, 16);       //Matches SQL format to HTML format
     document.getElementById("end_time").value = eventInfo.end_time.replace(' ', 'T');
     document.getElementById("standard_price").value = eventInfo.standard_price;
     document.getElementById("event_status").value = eventInfo.event_status;
@@ -26,10 +26,11 @@ async function loadEvent(){
 //Load venues from backend and fill dropdown menu
 async function loadVenues(){
     const response = await fetch(`${apiBase}/api/events/venues`, {credentials: "include"});     //GET request to backend for venues, sending sessions cookies as well
-    const venueData = await response.json()                                 //Convert JSON response to JS object
+    const venueData = await response.json();                                 //Convert JSON response to JS object
 
     const select = document.getElementById("venue_id");         //Get <select> element with id venue_id (dropdown menu element)
 
+    select.innerHTML = "";
     venueData.venues.forEach(v => {                             //Loop through each venue returned
         select.innerHTML += `<option value="${v.venue_id}">${v.venue_name} (${v.city})</option>`;       //Store venue id, display venue name and city
     });

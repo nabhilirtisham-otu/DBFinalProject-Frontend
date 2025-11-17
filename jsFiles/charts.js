@@ -1,9 +1,10 @@
 /*
 Chart visualization, with events grouped by status
 */
+const apiBase = "http://localhost:3000";
 
 async function loadChart(){                     //Visualize chart
-    const response = await fetch(`${apiBase}/api/events?limits=200`, {credentials:"include"});      //Send GET request to /api/events, along with session cookies
+    const response = await fetch(`${apiBase}/api/events?limit=200`, {credentials:"include"});      //Send GET request to /api/events, along with session cookies
     const result = await response.json();           //Convert JSON server response to JS object
 
     const eventCounts = {};                             //Store event count (by status)

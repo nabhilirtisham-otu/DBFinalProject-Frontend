@@ -14,7 +14,7 @@ async function loadOrders() {
 
         const orderData = await response.json();            //Convert order data JSON to JS object
         const tBody = document.querySelector("#ordersTable tbody");         //Select order table body in orders HTML page
-        tBody.innerHTML = ""                                //Clean body content
+        tBody.innerHTML = "";                                //Clean body content
 
         (orderData.orders || []).forEach(ord => {              //For every order in orderData (or fallback empty array)
             const tRow = document.createElement("tr");          //Create new table row element

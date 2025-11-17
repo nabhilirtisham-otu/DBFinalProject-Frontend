@@ -11,6 +11,7 @@ async function login(email, password){                  //Send an HTTP request t
         headers: {"Content-Type": "application/json"},  //Request body will be sent as JSON
         body: JSON.stringify({email, password})         //Convert login information into JSON string to be read by backend
     });
+    if (!response.ok) return { error: "Network error" };        //Error handling
     return response.json();                             //Convert JSON server response into a JS object
 }
 
@@ -42,6 +43,6 @@ async function requireAuth(){                           //Used on protected page
     });
 
     if (response.status !== 200){                       //Check if the response is a success
-        window.location.href = "index.html";            //If not, the user is sent back to login
+        window.location.href = "login.html";            //If not, the user is sent back to login
     }
 }

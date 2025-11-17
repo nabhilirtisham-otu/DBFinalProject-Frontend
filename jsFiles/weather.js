@@ -7,12 +7,12 @@ const apiBase = "http://localhost:3000";                //Backend API base URL
 //Retrieve + save city weather from OpenWeather API, update UI
 async function fetchCityWeather(){
     const weatherCity = document.getElementById("cityInput").value.trim();          //Read city input value
-    if (!city) return showMessage("Please enter a city,", "error");             //Error message for empty input
+    if (!weatherCity) return showMessage("Please enter a city,", "error");             //Error message for empty input
 
     try {
         showLoadingScreen();
 
-        const response = await fetch(`${apiBase}/api/weather/fetch/${encodeURIComponent(city)}`, {              //GET request for city weather, with session cookies
+        const response = await fetch(`${apiBase}/api/weather/fetch/${encodeURIComponent(weatherCity)}`, {              //GET request for city weather, with session cookies
             credentials: "include"
         });
         const weatherData = await response.json();              //Convert JSON response to JS object
@@ -81,6 +81,6 @@ function populateCityFilter(rows){
 //Filter table with selected city
 function filterLogs(){
     const filterCity = document.getElementById("cityFilter").value;             //Read city current selected from dropdown menu
-    if(!city) renderWeatherTable(fullWeatherLogs);                      //If "all" option selected, show all rows
-    else renderWeatherTable(fullWeatherLogs.filter(r => r.city === city));              //Otherwise, filter rows where row city matches the chosen city
+    if(!filterCity) renderWeatherTable(fullWeatherLogs);                      //If "all" option selected, show all rows
+    else renderWeatherTable(fullWeatherLogs.filter(r => r.city === filterCity));              //Otherwise, filter rows where row city matches the chosen city
 }
