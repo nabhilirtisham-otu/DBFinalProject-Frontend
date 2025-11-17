@@ -25,7 +25,7 @@
 
         <!--Saved weather log data, filterable by city-->
         <h3>Saved Logs</h3>
-        <label for="cityFilter">Filer by City:</label>
+        <label for="cityFilter">Filter by City:</label>
         <select id="cityFilter" onchange="filterLogs()">
             <option value="">(all)</option>
         </select>
@@ -33,12 +33,18 @@
         <!--Display weather information in table format-->
         <table id="weatherTable" style="width:100%;border-collapse:collapse;margin-top:8px">
             <thead>
-                <tr><th>City</th></tr>Temp (°C)</th><th>Description</th><th>Logged</th></tr>
+                <tr>
+                    <th>City</th>
+                    <th>Temp (°C)</th>
+                    <th>Description</th>
+                    <th>Logged</th>
+                </tr>
             </thead>
             <tbody></tbody>
         </table>
 
         <!--Scripts for authorization, UI functionalities, and weather display-->
+        <script src="./jsFiles/config.js"></script>
         <script src="./jsFiles/auth.js"></script>
         <script src="./jsFiles/ui.js"></script>
         <script src="./jsFiles/weather.js"></script>

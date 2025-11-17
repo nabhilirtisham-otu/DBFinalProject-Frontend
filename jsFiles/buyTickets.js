@@ -1,5 +1,3 @@
-const apiBase = "http://localhost:3000";                //Backend API base URL
-
 let currentTickets = [];                                //Hold tickets returned by backend for chosen event
 let selectedTicketIDs = new Set();                      //Hold checkboxes user checked (no duplication of IDs)
 

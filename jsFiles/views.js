@@ -1,5 +1,3 @@
-const apiBase = "http://localhost:3000";            //Backend Api base URL
-
 //Retrieves and displays view information
 async function runView(){
     const view = document.getElementById("viewSelect").value;       //Read view selected by user

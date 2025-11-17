@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>Edit Event</title>
         <link rel="stylesheet" href="./cssFiles/style.css">
     </head>
 
+<<<<<<< HEAD
+    <!--Authorization, then load events + venues upon page loading-->
+    <body onload="requireAuth(); loadEvent(); loadVenues();">
+=======
     <body onload="requireAuth(); loadEvent(); loadVenues()">
+>>>>>>> 8463a4f9370581056a5730edf539756b1a6a5a5e
 
         <div class="navbar">
             <a href="orgevents.html">Events</a>
@@ -35,6 +41,14 @@
                     <label for="end_time">End Time</label>
                     <input type="datetime-local" id="end_time">
 
+<<<<<<< HEAD
+            <!--Submit button-->
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <!--Scripts for authentication and adding events-->
+        <script src="./jsFiles/config.js"></script>
+=======
                     <label for="standard_price">Standard Price</label>
                     <input type="number" id="standard_price" placeholder="Event standard price...">
 
@@ -53,6 +67,7 @@
 
         </div>
 
+>>>>>>> 8463a4f9370581056a5730edf539756b1a6a5a5e
         <script src="./jsFiles/auth.js"></script>
         <script src="./jsFiles/edit-event.js"></script>
 

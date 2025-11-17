@@ -2,8 +2,6 @@
 Performs city filtering and table rendering
 */
 
-const apiBase = "http://localhost:3000";
-
 async function loadEvents(){
     const sTerm = document.getElementById("searchTerm").value;      //Read search term input
     const sDate = document.getElementById("startDate").value;      //Read start date input
@@ -35,7 +33,7 @@ async function loadCities() {
             credentials: "include"
         });
 
-        const data = await response.json();   // <-- data is initialized here
+        const data = await response.json();
 
         const select = document.getElementById("cityFilter");
 

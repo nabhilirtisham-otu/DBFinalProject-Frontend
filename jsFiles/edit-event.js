@@ -2,7 +2,6 @@
 Edit details for an existing event.
 */
 
-const apiBase = "http://localhost:3000";            //Backend URL base API
 const urlParameters = new URLSearchParams(window.location.search);      //Return and convert URL query string into a readable object
 const eID = urlParameters.get("id");                //Retrieve event ID from URL query string object
 

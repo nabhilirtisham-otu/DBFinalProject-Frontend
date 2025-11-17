@@ -2,8 +2,6 @@
 Load venues and add events
 */
 
-const apiBase = "http://localhost:3000";                //Backend API base URL
-
 //Load venues from backend and fill dropdown menu
 async function loadVenues(){
     const response = await fetch(`${apiBase}/api/events/venues`, {credentials: "include"});     //GET request to backend for venues, sending sessions cookies as well
