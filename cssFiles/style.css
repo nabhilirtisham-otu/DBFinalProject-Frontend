@@ -551,3 +551,21 @@ body {
 #buyBtn:hover:enabled {
     background-color: var(--tinted-black);
 }
+
+/* Wider column spacing for all tables */
+#ordersTable th,
+#ordersTable td {
+    padding: 14px 24px;   /* Increase horizontal padding */
+}
+
+/* Optional: Make header look cleaner */
+#ordersTable th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Optional: increase minimum column width */
+#ordersTable td,
+#ordersTable th {
+    min-width: 140px;
+}
