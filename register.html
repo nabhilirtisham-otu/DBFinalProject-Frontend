@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login | Event manager</title>
+        <link rel="stylesheet" href="./cssFiles/style.css"/>
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="events.html">Events</a>
+            <div class="center_navbar">
+                <a href="guest-page.html" class="title-link"><h1>TickIt</h1></a>
+            </div>
+            <a href="login.html">Login</a>
+	    </div>
+
+        <div class="login_container">
+            <h2>Register</h2>
+            <form id="loginForm">
+                <!--email and password must be provided before submission-->
+                <input type="email" id="email" placeholder="Email" required /><br>
+                <input type="password" id="pwd" placeholder="Password" required /><br>
+                <button type="submit">Register</button>
+            </form>
+            <!--display message regarding register status (if unsuccessful, display to user)-->
+            <p id="registerMsg"></p>
+        </div>
+        <script src="./jsFiles/auth.js"></script>
+    </body>
+</html>
