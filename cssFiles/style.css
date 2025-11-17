@@ -588,3 +588,24 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.form-layout {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+#viewSelect {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    min-width: 260px;
+}
+
+.primary-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
