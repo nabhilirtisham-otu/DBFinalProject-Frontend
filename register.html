@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login | Event manager</title>
+        <title>Regsiter | Event manager</title>
         <link rel="stylesheet" href="./cssFiles/style.css"/>
     </head>
     <body>
@@ -15,24 +15,25 @@
 
         <div class="login_container">
             <h2>Register</h2>
-            <form id="loginForm">
+            <form id="registerForm">
                 <!--email and password must be provided before submission-->
                 <input type="email" id="email" placeholder="Email" required /><br>
                 <input type="password" id="pwd" placeholder="Password" required /><br>
                 <div class="register_radio">
                     <p>Select your role</p>
                 
-                    <input type="radio" name="role" value="organizer" id="organizer">
-                    <label for="organizer">organizer</label>       
+                    <input type="radio" name="role" value="Organizer" id="Organizer">
+                    <label for="Organizer">Organizer</label>       
 
-                    <input type="radio" name="role" value="user" id="user">
-                    <label for="user">user</label> 
+                    <input type="radio" name="role" value="Customer" id="Customer">
+                    <label for="Customer">Customer</label> 
                 </div>
                 <button type="submit">Register</button>
             </form>
             <!--display message regarding register status (if unsuccessful, display to user)-->
             <p id="registerMsg"></p>
         </div>
+        <script src="./jsFiles/config.js"></script>
         <script src="./jsFiles/auth.js"></script>
     </body>
 </html>

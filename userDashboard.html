@@ -5,10 +5,11 @@ User dashboard with chart and filters
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>Dashboard</title>
         <link rel="stylesheet" href="./cssFiles/style.css"/>
     </head>
-    <body>
+    <body onload="requireAuth(); loadChart();">
         <div class="navbar">
             <a href="userevents.html">Events</a>
             <div class="center_navbar">
@@ -59,18 +60,21 @@ User dashboard with chart and filters
         <canvas id="eventChart"></canvas>
 
         <!--scripts for the chart minified file, authorization, and chart-->
-        <script src="./libs/chart.min.js"></script>
-        <script src="./jsFiles/auth.js"></script>
-        <script src="./jsFiles/charts.js"></script>
-    </body>
+        <script src="./jsFiles/config.js"></script>
+        <script src="./libs/chart.min.js" defer></script>
+        <script src="./jsFiles/auth.js" defer></script>
+        <script src="./jsFiles/charts.js" defer></script>
 
-    
-    <footer>
+        <footer>
 			<div class="footerdiv">
 				<a class="footer" href="pages/aboutUs.html"> About us </a>
 				<a class="footer" href="pages/contactUs.html"> Contact us </a>
 				<a class="footer" href="pages/features.html"> Features </a>
 				<a class="footer" href="pages/terms.html"> Terms </a>
 			</div>	
-	</footer>
+	    </footer>
+    </body>
+
+    
+    
 </html>

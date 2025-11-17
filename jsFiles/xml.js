@@ -2,8 +2,6 @@
 Display XML information in table format
 */
 
-const apiBase = "http://localhost:3000";                //Backend API base URL
-
 async function loadXMLEvents(){
     try{
         showLoadingScreen();

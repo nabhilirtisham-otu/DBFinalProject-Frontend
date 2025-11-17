@@ -1,5 +1,3 @@
-const apiBase = "http://localhost:3000";                    //Backend API base URL
-
 const urlParams = new URLSearchParams(window.location.search);                      //Read query parameters from URL
 const eID = urlParams.get("event_id");                      //Extract event ID from URL object
 

@@ -1,5 +1,3 @@
-const apiBase = "http://localhost:3000";            //Backend API base URL
-
 //Helper function to return query parameter values
 function getQueryParam(paraName){
     const queryParams = new URLSearchParams(window.location.search);        //Store and parse URL query string into key/value pairs

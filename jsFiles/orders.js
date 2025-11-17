@@ -1,5 +1,3 @@
-const apiBase = "http://localhost:3000";                //Backend API base URL
-
 //Load and display user orders
 async function loadOrders() {
     try{

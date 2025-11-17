@@ -2,8 +2,6 @@
 Logic to export files as CSVs and PDFs
 */
 
-const apiBase = "http://localhost:3000";                    //Backend API base URL
-
 //Download CSV file
 function downloadCSV(){
     const APIUrl = `${apiBase}/api/export/events.csv`;              //Final API URL

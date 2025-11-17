@@ -2,8 +2,6 @@
 Organizer event view and event manipulation buttons
 */
 
-const apiBase = "http://localhost:3000";                        //Backend API base URL
-
 //Function to load all events for the organizer
 async function loadOrganizerEvents(){
     const response = await fetch(`${apiBase}/api/organizer/events`, {credentials: "include"});      //GET request (along with cookies) to backend to retrieve events
