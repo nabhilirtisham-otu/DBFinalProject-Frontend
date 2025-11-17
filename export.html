@@ -1,0 +1,27 @@
+<!--Export files in CSV and PDF formats-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Data Export</title>
+        <link rel="stylesheet" href="./cssFiles/style.css">
+    </head>
+
+    <!--Perform authorization on page loading-->
+    <body onload="requireAuth();">
+        <h2>Export Events</h2>
+        <button onclick="logout()">Logout</button>
+
+        <!--File download buttons-->
+        <div style="margin-top:12px">
+            <button onclick="downloadCSV()">Download CSV</button>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
+
+        <!--Scripts for authorization, UI functionalities, and file export functionalities-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/ui.js"></script>
+        <script src="./jsFiles/export.js"></script>
+    </body>
+</html>
