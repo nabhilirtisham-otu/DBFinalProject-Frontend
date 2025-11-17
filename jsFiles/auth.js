@@ -13,19 +13,58 @@ async function login(email, password){                  //Send an HTTP request t
     return response.json();                             //Convert JSON server response into a JS object
 }
 
-document.getElementById("loginForm")?.addEventListener("submit", async(e)=>{        //Add an event listener to the submit button in the login form
-    e.preventDefault();                                 //Prevent a normal form submission from ocurring
+document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    const email = document.getElementById("email").value;       //Read password and email inputs
+    const userName = document.getElementById("userName").value;
+    const email = document.getElementById("email").value;
+    const pwd = document.getElementById("pwd").value;
+    const userRole = document.querySelector("input[name='role']:checked")?.value;
+
+    const response = await fetch(`${apiBase}/api/auth/register`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, email, pwd, userRole })
+    });
+
+    const msgBox = document.getElementById("registerMsg");
+
+    if (!response.ok) {
+        const data = await response.json();
+        msgBox.textContent = data.message || "Registration failed.";
+        msgBox.style.color = "red";
+        return;
+    }
+
+    msgBox.textContent = "Registration successful! Redirecting to login…";
+    msgBox.style.color = "green";
+    setTimeout(() => window.location.href = "login.html", 1500);
+});
+
+
+document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
     const password = document.getElementById("pwd").value;
-    const doLogin = await login(email, password);         //Login by calling the login function and using the provided email and password
+    const doLogin = await login(email, password);
 
-    if(doLogin.message?.includes("Success")){
-        window.location.href = "./userDashboard.html";      //If login is a success, proceed to the dashboard page
-    } else{
-        document.getElementById("loginMsg").textContent = "Invalid credentials. Please try again.";      //Otherwise, display an error message.
+    const msgBox = document.getElementById("loginMsg");
+
+    if (!doLogin || !doLogin.user) {
+        msgBox.textContent = "Invalid credentials. Please try again.";
+        return;
+    }
+
+    // role-based redirect
+    if (doLogin.user.role === "Organizer") {
+        window.location.href = "./orgDashboard.html";
+    } else {
+        window.location.href = "./userDashboard.html";
     }
 });
+
 
 async function logout(){                                //Logout function
     await fetch(`${apiBase}/api/auth/logout`,{          //Send the backend a logout request
