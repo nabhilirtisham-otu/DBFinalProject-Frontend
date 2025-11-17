@@ -19,6 +19,15 @@
                 <!--email and password must be provided before submission-->
                 <input type="email" id="email" placeholder="Email" required /><br>
                 <input type="password" id="pwd" placeholder="Password" required /><br>
+                <div class="register_radio">
+                    <p>Select your role</p>
+                
+                    <input type="radio" name="role" value="organizer" id="organizer">
+                    <label for="organizer">organizer</label>       
+
+                    <input type="radio" name="role" value="user" id="user">
+                    <label for="user">user</label> 
+                </div>
                 <button type="submit">Register</button>
             </form>
             <!--display message regarding register status (if unsuccessful, display to user)-->

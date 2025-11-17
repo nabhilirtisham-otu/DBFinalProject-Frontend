@@ -114,3 +114,13 @@ footer {
     padding: 10px;
     font-size: 16px;
 }
+
+.register_radio {
+    text-align: left;   /* aligns radios + labels to the left */
+    width: 250px;       /* controls how wide the left-aligned area is */
+    margin-bottom: 15px;
+}
+
+.register_radio p {
+    margin-top: 0px;
+}
