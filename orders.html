@@ -1,19 +1,58 @@
-<!--Display order information-->
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Your Orders</title>
-        <link rel="stylesheet" href="./cssFiles/style.css"/>
-    </head>
-    
-    <!--Perofrm authorization and load orders upon page load-->
-    <body onload="requireAuth(); loadOrders();">
+<head>
+    <meta charset="utf-8"/>
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="./cssFiles/style.css"/>
+</head>
 
-        <h2>Your Orders</h2>
+<body onload="requireAuth(); loadOrders();">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="userevents.html">Events</a>
+
+        <div class="center_navbar">
+            <a href="userDashboard.html" class="title-link">
+                <h1>TickIt</h1>
+            </a>
+        </div>
+
         <button onclick="logout()">Logout</button>
+    </div>
 
+<<<<<<< HEAD
+    <div class="main_body">
+    <!-- Page Title -->
+    <h2 class="page-title">Your Orders</h2>
+
+    <!-- Orders Table Card -->
+    <div class="ticket-card">
+        <h3 class="ticket-title">Order History</h3>
+
+        <div class="table-wrapper-buy">
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <!-- Scripts -->
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/ui.js"></script>
+    <script src="./jsFiles/orders.js"></script>
+</body>
+</html>
+=======
         <!--Table to display order information-->
         <table id="ordersTable" style="width:100%;border-collapse:collapse">
             <thead>
@@ -35,3 +74,4 @@
         <script src="./jsFiles/orders.js"></script>
     </body>
 </html>
+>>>>>>> 14d1c7e923933ca3ac90ef1dd8cb036799fa1900
