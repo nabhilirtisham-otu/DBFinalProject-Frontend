@@ -2,7 +2,7 @@
 Load venues and add events
 */
 
-const apiBase = "http://localhost:3001";                //Backend API base URL
+const apiBase = "http://localhost:3000";                //Backend API base URL
 
 //Load venues from backend and fill dropdown menu
 async function loadVenues(){

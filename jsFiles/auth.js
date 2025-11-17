@@ -2,7 +2,7 @@
 Performs login, logout, and session check functionality.
 */
 
-const apiBase = "http://localhost:3001";                //Store the URL of the backend server
+const apiBase = "http://localhost:3000";                //Store the URL of the backend server
 
 async function login(email, password){                  //Send an HTTP request to the backend using Fetch API
     const response = await fetch(`${apiBase}/api/auth/login`, {     //Form the URL as http://localhost:3001/api/auth/login

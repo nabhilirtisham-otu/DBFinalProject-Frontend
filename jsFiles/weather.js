@@ -2,7 +2,7 @@
 Fetch weather information, load weather logs, render weather table, fill dropdown menu, and filter table
 */
 
-const apiBase = "http://localhost:3001";                //Backend API base URL
+const apiBase = "http://localhost:3000";                //Backend API base URL
 
 //Retrieve + save city weather from OpenWeather API, update UI
 async function fetchCityWeather(){

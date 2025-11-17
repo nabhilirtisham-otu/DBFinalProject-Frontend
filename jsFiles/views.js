@@ -1,4 +1,4 @@
-const apiBase = "http://localhost:3001";            //Backend Api base URL
+const apiBase = "http://localhost:3000";            //Backend Api base URL
 
 //Retrieves and displays view information
 async function runView(){

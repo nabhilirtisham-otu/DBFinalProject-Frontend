@@ -2,7 +2,7 @@
 Organizer event view and event manipulation buttons
 */
 
-const apiBase = "http://localhost:3001";                        //Backend API base URL
+const apiBase = "http://localhost:3000";                        //Backend API base URL
 
 //Function to load all events for the organizer
 async function loadOrganizerEvents(){
