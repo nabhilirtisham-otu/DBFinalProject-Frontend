@@ -359,3 +359,66 @@ body {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+
+/* ---- Add Event Page Styling ---- */
+
+.page-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 25px;
+    color: var(--raisin-black);
+}
+
+.form-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--seasalt);
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 2px solid var(--raisin-black);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+#eventForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#eventForm label {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: -5px;
+}
+
+#eventForm input,
+#eventForm select,
+#eventForm textarea {
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid var(--raisin-black);
+    background-color: var(--white);
+}
+
+#eventForm textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Submit button */
+.submit-btn {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: var(--tinted-black);
+}
