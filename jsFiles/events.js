@@ -16,7 +16,7 @@ async function loadEvents(){
     tBody.innerHTML = "";                                      //Clean table body
 
     tData.events.forEach(ev => {                                //Insert event information into the event display table for every event object in returned data
-        const evRow = `<tr>
+        const evRow = `<tr onclick="window.location.href='buyTickets.html?event_id=${ev.event_id}'" style="cursor:pointer">
         <td>${ev.title}</td>
         <td>${ev.city}</td>
         <td>${new Date(ev.start_time).toLocaleString()}</td>
