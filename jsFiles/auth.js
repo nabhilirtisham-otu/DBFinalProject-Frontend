@@ -19,12 +19,12 @@ document.getElementById("loginForm")?.addEventListener("submit", async(e)=>{    
 
     const email = document.getElementById("email").value;       //Read password and email inputs
     const password = document.getElementById("pwd").value;
-    const login = await login(email, password);         //Login by calling the login function and using the provided email and password
+    const doLogin = await login(email, password);         //Login by calling the login function and using the provided email and password
 
-    if(result.message?.includes("Success")){
+    if(doLogin.message?.includes("Success")){
         window.location.href = "./userDashboard.html";      //If login is a success, proceed to the dashboard page
     } else{
-        document.getElementById("loginMsg").txtContent = "Invalid credentials. Please try again.";      //Otherwise, display an error message.
+        document.getElementById("loginMsg").textContent = "Invalid credentials. Please try again.";      //Otherwise, display an error message.
     }
 });
 

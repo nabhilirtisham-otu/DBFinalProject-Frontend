@@ -4,7 +4,7 @@ const apiBase = "http://localhost:3000";            //Backend Api base URL
 async function runView(){
     const view = document.getElementById("viewSelect").value;       //Read view selected by user
 
-    const response = await fetch(`${apiBase}/api/views/${view}}`, {     //Fetch view from backend with GET, along with sent cookies
+    const response = await fetch(`${apiBase}/api/views/${view}`, {     //Fetch view from backend with GET, along with sent cookies
         credentials: "include"
     });
     const viewData = await response.json()                  //Convert JSON response to JS object
