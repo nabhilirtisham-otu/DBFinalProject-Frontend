@@ -86,8 +86,21 @@ footer {
 
 .login_container {
     text-align: center;
-    border-radius: 2px;
-    border: 2px solid black;
+    width: 300px;         /* controls how wide the box is */
+    margin: 50px auto;    /* centers the box */
+    padding: 20px;        /* spacing inside the box */
+    border: 2px solid var(--raisin-black); /* border color */
+    border-radius: 15px;  /* rounded corners */
+}
+
+.login_container a {
+    display: inline-block;
+    margin-top: 15px;   
+    font-size: 18px;
+}
+
+.login_container a:hover {
+  color: blue;
 }
 
 #loginForm {
