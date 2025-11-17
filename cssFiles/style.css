@@ -81,7 +81,7 @@ footer {
 	border: 2px var(--raisin-black) solid;
 	/* color: var(--cool-gray); */
 	/*background-color: var(--flax);*/
-	margin-top: 30%;
+	margin-top: 10%;
 }
 
 .login_container {
@@ -189,4 +189,72 @@ footer {
 #eventDisplay th {
     background-color: rgb(187, 0, 255);
     color: var(--seasalt);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.main_body {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.main_body h2 {
+    color: black;
+    font-size: 32px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* ----- Force-safe row layout ----- */
+.content_section {               /* vertical stacking of rows */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+/* ROW LAYOUT */
+.row {
+    display: flex;
+    align-items: stretch;   /* text becomes same height as image */
+    gap: 25px;
+    width: 100%;
+}
+
+/* REVERSE ORDER (no flex-direction used) */
+.row.reverse p { order: 1; }
+.row.reverse img { order: 2; }
+
+/* IMAGE SIZING */
+.home_img {
+    width: 525px;           /* fixed width so both images match */
+    height: 300px;          /* fixed height so both images match */
+    object-fit: cover;      /* crops nicely instead of stretching */
+    border-radius: 15px;    /* rounded corners */
+    border: 3px solid #ccc; /* optional border */
+}
+
+/* TEXT BOX */
+.row p {
+    flex: 1;                /* takes up the remaining horizontal space */
+    margin: 0;
+    padding: 20px;          /* gives some breathing room */
+    font-size: 18px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;    /* vertically centers the text */
+    border-radius: 10px;    
 }
