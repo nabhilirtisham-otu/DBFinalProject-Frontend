@@ -2,7 +2,7 @@
 Performs city filtering and table rendering
 */
 
-console.log("events.js loaded");
+const apiBase = "http://localhost:3000";
 
 async function loadEvents(){
     const sTerm = document.getElementById("searchTerm").value;      //Read search term input
@@ -17,7 +17,7 @@ async function loadEvents(){
     const tBody = document.querySelector("#eventDisplay tbody");        //Assign <tbody> in the table to a variable
     tBody.innerHTML = "";                                      //Clean table body
 
-    tData.events.forEach(ev => {                                //Insert event information into the event display table for every event object in the returned data
+    tData.events.forEach(ev => {                                //Insert event information into the event display table for every event object in returned data
         const evRow = `<tr>
         <td>${ev.title}</td>
         <td>${ev.city}</td>
@@ -29,7 +29,6 @@ async function loadEvents(){
 }
 
 async function loadCities() {
-    console.log("loadCities() called");
 
     try {
         const response = await fetch(`${apiBase}/api/events/cities`, {
@@ -37,8 +36,6 @@ async function loadCities() {
         });
 
         const data = await response.json();   // <-- data is initialized here
-        console.log("City API raw response:", data);
-        console.log("cities array:", data.cities);
 
         const select = document.getElementById("cityFilter");
 

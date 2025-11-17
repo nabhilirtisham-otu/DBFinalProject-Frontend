@@ -1,5 +1,3 @@
-const { Button } = require("bootstrap");
-
 const apiBase = "http://localhost:3000";                //Backend API base URL
 
 let currentTickets = [];                                //Hold tickets returned by backend for chosen event
@@ -128,7 +126,7 @@ function onTicketToggle(eventTicket) {
 //Updates running total cost display
 function updateTotalDisplay(){
     const totalPrice = Array.from(selectedTicketIDs).reduce((sum, id) => {         //Convert selectedTicketIds to array
-        const tick = currentTickets.find(x => x.ticked_id === id);                  //For every id, find associated ticket object
+        const tick = currentTickets.find(x => x.ticket_id === id);                  //For every id, find associated ticket object
         return sum + (tick ? Number(tick.ticket_price) : 0);                        //Accumulate total ticket price
     }, 0);
     document.getElementById("totalAmount").textContent = formatCurrency(totalPrice);        //Update text in UI
@@ -141,7 +139,7 @@ function toggleBuyButton(){
 }
 
 async function buySelected() {
-    if (selectedTicketIDs === 0) return;                    //User can't buy anything if no tickets are selected
+    if (selectedTicketIDs.size === 0) return;                    //User can't buy anything if no tickets are selected
     const selectedTickets = Array.from(selectedTicketIDs);          //Convert selected tickets set to array
     try {
         showLoadingScreen();
@@ -149,7 +147,7 @@ async function buySelected() {
             method: "POST",
             credentials: "include",
             headers: {"Content-Type": "application/json"},              //Send selected tickets and payment method
-            body: JSON.stringify({selectedTickets, payment_method: "Credit"})
+            body: JSON.stringify({selectedTickets, payMethod: "Credit"})
         });
 
         if (response.status === 401){                       //Handle response error

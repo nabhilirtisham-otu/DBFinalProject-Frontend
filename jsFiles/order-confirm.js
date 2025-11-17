@@ -56,7 +56,7 @@ function renderOrder(order, tickets, payments){
 
     const tHead = `<tr><th>Ticket ID</th><th>Event</th><th>Seat</th><th>Price</th><th>Status</th></tr>`;        //Table header display
     const tRows = tickets.map(tick => {                             //Seat label for each ticket (row and number) with fallbacks
-        const seat = `${tick.rown_num || ''}-${tick.seat_number || tick.seat_id || ''}`;
+        const seat = `${tick.row_num || ''}-${tick.seat_number || tick.seat_id || ''}`;
         return `<tr>
         <td>${tick.ticket_id}</td>
         <td>${tick.event_title || tick.event_id}</td>
@@ -71,8 +71,9 @@ function renderOrder(order, tickets, payments){
     ticketsTable.innerHTML = `<thead>${tHead}</thead><tbody>${tRows}</tbody>`;          //Insert header and rows into table
     orderInfo.appendChild(ticketsTable);                            //Add finished table to HTML page
 
+    let pay = null;
     if (payments && payments.length){                               //Check if payment exists and take the payment object
-        const pay = payments[0];
+        pay = payments[0];
     }
 
     const paymentBox = document.createElement("div");               //Create section displaying payment method, amount, and status
