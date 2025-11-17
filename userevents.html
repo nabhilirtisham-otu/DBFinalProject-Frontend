@@ -1,0 +1,53 @@
+<!--
+Let users search events, with filter and dynamic table functionality
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Browse Events</title>
+        <link rel="stylesheet" href="./cssFiles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar">
+            <a href="userevents.html">Events</a>
+                <div class="center_navbar">
+                    <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+                </div>
+            <a href="login.html">Login</a>
+	    </div>
+        <h2>Event Search</h2>
+
+        
+
+        <!--filter by title, city, and set date range-->
+        <div class="filter-box">
+            <input type="text" id="searchTerm" placeholder="Search by title">
+            <input type="date" id="startDate">
+            <input type="date" id="endDate">
+
+            <select id="cityFilter">
+                <option value="">Any City</option>
+            </select>
+
+            <button onclick="loadEvents()">Search</button>
+        </div>
+
+        <table id="eventDisplay">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>City</th>
+                    <th>Start Date</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="logout()">Logout</button>
+        <!--Scripts to authorize and provide event information-->
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/events.js"></script>
+    </body>
+</html>
