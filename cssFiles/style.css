@@ -103,6 +103,21 @@ footer {
   color: blue;
 }
 
+.login_container button {
+    background-color: rgb(187, 0, 255);  
+    color: var(--seasalt);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;  /* smooth hover fade */
+}
+
+.login_container button:hover {
+    background-color: rgb(0, 0, 0);   
+}
+
 #loginForm {
     display: flex;
     flex-direction: column;
@@ -113,14 +128,65 @@ footer {
 #loginForm input, #loginForm button {
     padding: 10px;
     font-size: 16px;
+    border-radius: 8px;
 }
 
 .register_radio {
-    text-align: left;   /* aligns radios + labels to the left */
-    width: 250px;       /* controls how wide the left-aligned area is */
+    text-align: left;   
+    width: 250px;      
     margin-bottom: 15px;
 }
 
 .register_radio p {
     margin-top: 0px;
+}
+
+.filter-box {
+    display: flex;
+    flex-wrap: wrap;           
+    gap: 15px;                 
+    justify-content: center;   
+    margin: 30px auto;         
+    padding: 20px;
+    width: 80%;
+    background-color: var(--seasalt);
+    border: 2px solid var(--raisin-black);
+    border-radius: 12px;
+}
+
+.filter-box input,
+.filter-box select,
+.filter-box button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid var(--raisin-black);
+    border-radius: 8px;
+}
+
+.filter-box button {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-box button:hover {
+    background-color: var(--tinted-black);
+}
+
+#eventDisplay {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+#eventDisplay th, #eventDisplay td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--grayish);
+}
+
+#eventDisplay th {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
 }
