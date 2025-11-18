@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Data Export</title>
+        <link rel="stylesheet" href="./cssFiles/style.css">
+    </head>
+
+    <body onload="requireAuth();">
+
+        <div class="navbar">
+            <a href="orgevents.html">Events</a>
+
+            <div class="center_navbar">
+                <a href="orgDashboard.html" class="title-link"><h1>TickIt</h1></a>
+            </div>
+
+            <button onclick="logout()">Logout</button>
+        </div>
+
+        <div class="main_body">
+
+            <h2 class="export-title">Export Events</h2>
+
+            <div class="export-card">
+                <p>You can export all event data in CSV or PDF format using the options below.</p>
+
+                <div class="export-btns">
+                    <button class="primary-action-btn" onclick="downloadCSV()">Download CSV</button>
+                    <button class="primary-action-btn" onclick="downloadPDF()">Download PDF</button>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="./jsFiles/config.js"></script>
+        <script src="./jsFiles/auth.js"></script>
+        <script src="./jsFiles/ui.js"></script>
+        <script src="./jsFiles/export.js"></script>
+
+    </body>
+</html>

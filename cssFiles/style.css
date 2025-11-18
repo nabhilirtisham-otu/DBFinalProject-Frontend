@@ -828,3 +828,29 @@ body {
 .primary-action-btn:hover {
     background-color: var(--tinted-black);
 }
+
+/* Export button styling */
+.export-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.export-btn {
+    display: inline-block;
+    background-color: rgb(187, 0, 255);
+    color: var(--white);
+    padding: 14px 26px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 10px rgb(187, 0, 255)
+}
+
+.export-btn:hover {
+    background-color: rgb(187, 0, 255);
+    transform: translateY(-2px);
+}
