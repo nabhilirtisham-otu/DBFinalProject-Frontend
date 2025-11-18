@@ -1,4 +1,4 @@
-<!--Order confirmation page-->
+<!-- Order confirmation page -->
 
 <!DOCTYPE html>
 <html>
@@ -11,14 +11,25 @@
     <!--Perform authorization and load order confirmation page upon page load-->
     <body onload="requireAuth(); loadOrderConfirm();">
 
-        <h2>Order Confirmation</h2>
-        <button onclick="logout()">Logout</button>
+        <div class="navbar">
+            <a href="userevents.html">Events</a>
+            <div class="center_navbar">
+                <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+            </div>
+            <button onclick="logout()">Logout</button>
+	    </div>
 
-        <!--Hold order details-->
-        <div id="orderSummary">
+        <div class="page-wrapper">
+            <h2>Order Confirmation</h2>
+
+            <div id="orderSummary" class="order-summary-container">
+                <!-- JS will populate content here -->
+            </div>
+
+            <a href="userevents.html" class="back-btn">Back to Events</a>
         </div>
 
-        <!--Scripts to perform authorization, UI functionalities, and confirm order information-->
+        <!--Scripts-->
         <script src="./jsFiles/config.js"></script>
         <script src="./jsFiles/auth.js"></script>
         <script src="./jsFiles/ui.js"></script>
