@@ -754,3 +754,29 @@ body {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+
+/* Header row for title + weather link */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 20px auto 10px auto;
+}
+
+/* Style for the weather link so it matches your theme */
+.weather-link {
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 2px solid;
+    transition: 0.3s;
+    background-color: rgb(187, 0, 255);
+}
+
+.weather-link:hover {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+}
