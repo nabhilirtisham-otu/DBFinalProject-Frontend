@@ -1,0 +1,67 @@
+<!--Display weather information-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Weather Service</title>
+        <link rel="stylesheet" href="./cssFiles/style.css">
+    </head>
+
+   <body onload="requireAuth(); loadWeatherLogs();">
+
+    <div class="navbar">
+            <a href="orgevents.html">Events</a>
+                <div class="center_navbar">
+                    <a href="orgDashboard.html" class="title-link"><h1>TickIt</h1></a>
+                </div>
+                <button onclick="logout()">Logout</button>
+	    </div>
+
+    <div class="weather-container">
+
+        <h2>Weather (OpenWeatherMap)</h2>
+        <button onclick="logout()">Logout</button>
+
+        <!-- Input city -->
+        <div class="weather-input-box">
+            <input id="cityInput" placeholder="Enter city (e.g., Toronto)" />
+            <button onclick="fetchCityWeather()">Fetch Weather</button>
+        </div>
+
+        <!-- Last fetched weather -->
+        <div id="lastFetched"></div>
+
+        <!-- Saved logs -->
+        <h3>Saved Logs</h3>
+        <label for="cityFilter">Filter by City:</label>
+        <select id="cityFilter" onchange="filterLogs()">
+            <option value="">(all)</option>
+        </select>
+
+        <!-- Table wrapper -->
+        <div class="weather-table-wrapper">
+            <table id="weatherTable">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Temp (°C)</th>
+                        <th>Description</th>
+                        <th>Logged</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="./jsFiles/config.js"></script>
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/ui.js"></script>
+    <script src="./jsFiles/weather.js"></script>
+
+    </body>
+
+</html>
