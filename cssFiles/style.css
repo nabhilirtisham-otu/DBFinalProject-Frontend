@@ -141,6 +141,19 @@ footer {
     margin-top: 0px;
 }
 
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+}
+
+#registerForm input, #registerForm button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
 .filter-box {
     display: flex;
     flex-wrap: wrap;           
@@ -608,4 +621,136 @@ body {
     border-radius: 8px;
     border: none;
     cursor: pointer;
+}
+
+/* -------------------------------------- */
+/* WEATHER PAGE — PAGE-SPECIFIC STYLING   */
+/* -------------------------------------- */
+
+.weather-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background: var(--seasalt);
+    border: 2px solid var(--raisin-black);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Page title */
+.weather-container h2 {
+    text-align: center;
+    font-size: 32px;
+    color: var(--raisin-black);
+    margin-top: 0;
+}
+
+/* Logout button to match site theme */
+.weather-container button {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.weather-container button:hover {
+    background-color: var(--tinted-black);
+}
+
+/* Input box + fetch button layout */
+.weather-input-box {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.weather-input-box input {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid var(--raisin-black);
+    min-width: 260px;
+    font-size: 16px;
+}
+
+/* Last fetched display box */
+#lastFetched {
+    margin-top: 20px;
+    background: var(--white);
+    padding: 18px;
+    border-radius: 10px;
+    border: 2px solid var(--grayish);
+    font-size: 18px;
+}
+
+/* Saved Logs section title */
+.weather-container h3 {
+    margin-top: 35px;
+    font-size: 26px;
+    text-align: center;
+    color: var(--raisin-black);
+}
+
+/* Filter select */
+#cityFilter {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--raisin-black);
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* Weather table wrapper */
+.weather-table-wrapper {
+    margin-top: 20px;
+    overflow-x: auto;
+    background: var(--white);
+    border-radius: 12px;
+    border: 2px solid var(--raisin-black);
+    padding: 15px;
+}
+
+/* Weather table styling */
+#weatherTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+#weatherTable th {
+    background-color: rgb(187, 0, 255);
+    color: var(--seasalt);
+    padding: 14px 20px;
+    font-weight: 600;
+}
+
+#weatherTable td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--grayish);
+}
+
+/* Hover effect */
+#weatherTable tbody tr:hover {
+    background: var(--grayish);
+    transition: 0.2s;
+}
+
+/* More spacing between rows */
+#weatherTable tbody tr {
+    height: 55px;
+}
+
+/* Rounded edges on rows */
+#weatherTable tbody tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#weatherTable tbody tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }

@@ -8,45 +8,52 @@
         <link rel="stylesheet" href="./cssFiles/style.css">
     </head>
 
-    <!--Perform authorization and load weather log information upon page load-->
-    <body onload="requireAuth(); loadWeatherLogs();">
+   <body onload="requireAuth(); loadWeatherLogs();">
+
+    <div class="weather-container">
 
         <h2>Weather (OpenWeatherMap)</h2>
         <button onclick="logout()">Logout</button>
 
-        <!--Enter city to find weather information for-->
-        <div>
-            <input id="cityInput" placeholder="Enter city (e.g., Toronto)"/>
+        <!-- Input city -->
+        <div class="weather-input-box">
+            <input id="cityInput" placeholder="Enter city (e.g., Toronto)" />
             <button onclick="fetchCityWeather()">Fetch Weather</button>
         </div>
 
-        <!--Display recently-fetched city weather data-->
-        <div id="lastFetched" style="margin-top:12px"></div>
+        <!-- Last fetched weather -->
+        <div id="lastFetched"></div>
 
-        <!--Saved weather log data, filterable by city-->
+        <!-- Saved logs -->
         <h3>Saved Logs</h3>
         <label for="cityFilter">Filter by City:</label>
         <select id="cityFilter" onchange="filterLogs()">
             <option value="">(all)</option>
         </select>
 
-        <!--Display weather information in table format-->
-        <table id="weatherTable" style="width:100%;border-collapse:collapse;margin-top:8px">
-            <thead>
-                <tr>
-                    <th>City</th>
-                    <th>Temp (°C)</th>
-                    <th>Description</th>
-                    <th>Logged</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <!-- Table wrapper -->
+        <div class="weather-table-wrapper">
+            <table id="weatherTable">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Temp (°C)</th>
+                        <th>Description</th>
+                        <th>Logged</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-        <!--Scripts for authorization, UI functionalities, and weather display-->
-        <script src="./jsFiles/config.js"></script>
-        <script src="./jsFiles/auth.js"></script>
-        <script src="./jsFiles/ui.js"></script>
-        <script src="./jsFiles/weather.js"></script>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./jsFiles/config.js"></script>
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/ui.js"></script>
+    <script src="./jsFiles/weather.js"></script>
+
     </body>
+
 </html>
