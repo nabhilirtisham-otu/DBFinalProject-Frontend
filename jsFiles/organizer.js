@@ -7,7 +7,7 @@ async function loadOrganizerEvents(){
     const response = await fetch(`${apiBase}/api/organizer/events`, {credentials: "include"});      //GET request (along with cookies) to backend to retrieve events
     const eventData = await response.json();                    //Convert event information from JSON to JS object
 
-    const tBody = document.querySelector("#eventTable tbody");          //Prepares to append event information to the event table
+    const tBody = document.querySelector("#eventTableBody");          //Prepares to append event information to the event table
     tBody.innerHTML="";                                         //Clean existing table rows
 
     eventData.events.forEach(ev => {                            //Add event information to the table, along with buttons to edit/delete events and manage tickets

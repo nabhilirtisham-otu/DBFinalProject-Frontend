@@ -82,9 +82,9 @@ function renderOrder(order, tickets, payments){
     const paymentBox = document.createElement("div");               //Create section displaying payment method, amount, and status
     paymentBox.innerHTML =
         `<h4>Payment</h4>
-        <p><strong>Method: </strong>${pay.payment_method}</p>
-        <p><strong>Amount: </strong>${formatCurrency(pay.payment_amount)}</p>
-        <p><strong>Status: </strong>${pay.payment_status}</p>
+        <p><strong>Method: </strong>${payments.payment_method}</p>
+        <p><strong>Amount: </strong>${formatCurrency(payments.payment_amount)}</p>
+        <p><strong>Status: </strong>${payments.payment_status}</p>
     `;
     orderInfo.appendChild(paymentBox);
 }

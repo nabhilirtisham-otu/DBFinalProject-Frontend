@@ -4,7 +4,7 @@ Load venues and add events
 
 //Load venues from backend and fill dropdown menu
 async function loadVenues() {
-    const res = await fetch(`${apiBase}/api/organizer/events/venues`, {
+    const res = await fetch(`${apiBase}/api/events/venues/all`, {
         credentials: "include"
     });
 
