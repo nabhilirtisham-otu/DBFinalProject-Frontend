@@ -1,7 +1,7 @@
 /*
 Performs city filtering and table rendering
 */
-
+console.log("Loaded: events.js");
 async function loadEvents(){
     const sTerm = document.getElementById("searchTerm").value;      //Read search term input
     const sDate = document.getElementById("startDate").value;      //Read start date input

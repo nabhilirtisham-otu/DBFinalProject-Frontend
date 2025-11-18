@@ -1,37 +1,50 @@
-let currentTickets = [];                                //Hold tickets returned by backend for chosen event
-let selectedTicketIDs = new Set();                      //Hold checkboxes user checked (no duplication of IDs)
+let currentTickets = [];                                // Tickets returned by backend
+let selectedTicketIDs = new Set();                      // User-selected ticket IDs (no duplicates)
 
-//Initial setup page for buying tickets
+
+// ---------------------------
+// Initial Page Setup
+// ---------------------------
 async function initBuyPage() {
     try {
-        await loadEventDropdown();                      //Poplate dropdown with available events
-        document.getElementById("eventSelect").addEventListener("change", onEventChange)        //After use selects event, perform onEventChange()
-    } catch (error) {                                   //Error handling and logging
+        await loadEventDropdown();  
+        document.getElementById("eventSelect")
+            .addEventListener("change", onEventChange);
+    } catch (error) {
         console.error("initBuyPage", error);
         showMessage("Could not initialize buy page.", "error");
     }
 }
 
-//Load events into dropdown selection menu
-async function loadEventDropdown(){
-    try{
-        showLoadingScreen();                            //Loading screen overlay
-        const response = await fetch(`${apiBase}/api/events?limit=200`, {credentials: "include"});      //GET request (with cookies) to retrieve event information
-        if (response.status === 401){                   //If backend determines user isn't authenticated, redirect to login
+
+// ---------------------------
+// Load Events into Dropdown
+// ---------------------------
+async function loadEventDropdown() {
+    try {
+        showLoadingScreen();
+        const response = await fetch(`${apiBase}/api/events?limit=200`, { credentials: "include" });
+
+        if (response.status === 401) {
             hideLoadingScreen();
             requireAuth();
             return;
         }
-        const data = await response.json();             //Convert backend JSON to JS object
-        const select = document.getElementById("eventSelect");                  //Choose <select> element, inserts default placeholder option
+
+        const data = await response.json();
+        const select = document.getElementById("eventSelect");
+
         select.innerHTML = `<option value="">--- Select Event ---</option>`;
-        (data.events || []).forEach(ev => {              //Loop through backend events
-            const option = document.createElement("option");        //Create option node
-            option.value = ev.event_id;                 //Set value to event ID
-            option.textContent = `${ev.title} - ${ev.city} - ${new Date(ev.start_time).toLocaleString()}`;      //Show event title, city, and date
-            select.appendChild(option);                 //Append option to dropdown menu
+        
+        (data.events || []).forEach(ev => {
+            const option = document.createElement("option");
+            option.value = ev.event_id;
+            option.textContent =
+                `${ev.title} - ${ev.city} - ${new Date(ev.start_time).toLocaleString()}`;
+            select.appendChild(option);
         });
-    } catch (error){                                    //Error handling and logging
+
+    } catch (error) {
         console.error("loadEventDropdown", error);
         showMessage("Could not successfully load events.", "error");
     } finally {
@@ -39,33 +52,49 @@ async function loadEventDropdown(){
     }
 }
 
-//Runs when user selects an event
-async function onEventChange(event){
-    const eID = event.target.value;                 //Extract selected event ID
-    selectedTicketIDs = new Set();                  //Clear previously-selected tickets
-    updateTotalDisplay();                           //Reset total price to 0
-    toggleBuyButton();                              //Disable buy button
-    if(!eID){                                       //If user chooses "--Select Event" (placeholder option), clear the table
+
+// ---------------------------
+// When user selects an event
+// ---------------------------
+async function onEventChange(event) {
+    const eID = event.target.value;
+
+    selectedTicketIDs.clear();
+    updateTotalDisplay();
+    toggleBuyButton();
+
+    if (!eID) {
         renderTickets([]);
         return;
     }
-    await loadAvailableTickets(eID);                //Load ticket list from backend
+
+    await loadAvailableTickets(eID);
 }
 
-//Display available tickets
-async function loadAvailableTickets(eID){
-    try{
-        showLoadingScreen();                        //Show loading screen
-        const response = await fetch(`${apiBase}/api/tickets?event_id=${eID}&status=Available`, { credentials: "include"});     //Call backend to retrieve available tickets for the current event
-        if (response.status === 401){               //Redirection if unauthorized
+
+// ---------------------------
+// Load Tickets for Event
+// ---------------------------
+async function loadAvailableTickets(eID) {
+    try {
+        showLoadingScreen();
+
+        const response = await fetch(
+            `${apiBase}/api/tickets?eID=${eID}&status=Available`,
+            { credentials: "include" }
+        );
+
+        if (response.status === 401) {
             hideLoadingScreen();
             requireAuth();
             return;
         }
-        const ticketData = await response.json();           //Convert JSON response to JS object
-        currentTickets = ticketData.tickets || [];          //Save tickets globally
-        renderTickets(currentTickets);                      //Construct table rows using returned tickets for the event
-    } catch (error){                                    //Error handling and logging
+
+        const ticketData = await response.json();
+        currentTickets = ticketData.tickets || [];
+        renderTickets(currentTickets);
+
+    } catch (error) {
         console.error("loadAvailableTickets", error);
         showMessage("Could not successfully load tickets.", "error");
     } finally {
@@ -73,97 +102,129 @@ async function loadAvailableTickets(eID){
     }
 }
 
-//Display tickets in the ticket table
-function renderTickets(tickets){
-    const tBody = document.querySelector("#ticketsTable tbody");        //Select body of tickets table
-    tBody.innerHTML="";                                                 //Clear old rows
-    tickets.forEach(tick => {                                   //For every ticket
-        const tRow = document.createElement("tr");              //Create a table row
-        const checkboxTd = document.createElement("td");        //Create table data cell
-        const checkbox = document.createElement("input");       //Create checkbox to let use select ticket
-        checkbox.type = "checkbox"
-        checkbox.value = tick.ticket_id;                        //Store ticket ID in checkbox value
-        checkbox.addEventListener("change", onTicketToggle);    //Run onTicketToggle when ticket checkbox clicked
-        checkboxTd.appendChild(checkbox);                       //Add child to checkbox data cell
 
-        const seatTd = document.createElement("td");            //Create data cell for seat
-        seatTd.textContent = `${tick.row_num || ''}-${tick.seat_number || tick.seat_id || ''}`;     //Display seat location or fallbacks
+// ---------------------------
+// Render Table of Tickets
+// ---------------------------
+function renderTickets(tickets) {
+    const tBody = document.querySelector("#ticketsTable tbody");
+    tBody.innerHTML = "";
 
-        const secTd = document.createElement("td");             //Create data cell for section and display section name
+    tickets.forEach(tick => {
+        const tRow = document.createElement("tr");
+
+        // Checkbox column
+        const checkboxTd = document.createElement("td");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = tick.ticket_id;
+        checkbox.addEventListener("change", onTicketToggle);
+        checkboxTd.appendChild(checkbox);
+
+        // Other columns
+        const seatTd = document.createElement("td");
+        seatTd.textContent = `${tick.row_num || ''}-${tick.seat_number || tick.seat_id || ''}`;
+
+        const secTd = document.createElement("td");
         secTd.textContent = tick.section_name || '';
 
-        const priceTd = document.createElement("td");           //Create data cell for price and display price value (using formatter function)
+        const priceTd = document.createElement("td");
         priceTd.textContent = formatCurrency(tick.ticket_price);
 
-        const statusTd = document.createElement("td");          //Create data cell for ticket status and display status
+        const statusTd = document.createElement("td");
         statusTd.textContent = tick.ticket_status;
 
-        tRow.appendChild(checkboxTd);                           //Append all the data cells above to the table row
+        tRow.appendChild(checkboxTd);
         tRow.appendChild(seatTd);
         tRow.appendChild(secTd);
         tRow.appendChild(priceTd);
         tRow.appendChild(statusTd);
 
-        tBody.appendChild(tRow);                                //Append the final table row to the table body
+        tBody.appendChild(tRow);
     });
 }
 
-//Runs when a user selects a ticket
-function onTicketToggle(eventTicket) {
-    const etID = Number(eventTicket.target.value);          //Get ticket ID for corresponding event ticket
-    if (eventTicket.target.checked) {                       //Add/remove ticket from selected tickets set
-        selectedTicketIDs.add(etID);
-    } else {
-        selectedTicketIDs.delete(etID);
-    }
 
-    updateTotalDisplay();                                   //Recalculate total cost and enable/disable buy button
+// ---------------------------
+// When a ticket checkbox is clicked
+// ---------------------------
+function onTicketToggle(eventTicket) {
+    const id = Number(eventTicket.target.value);
+
+    if (eventTicket.target.checked)
+        selectedTicketIDs.add(id);
+    else
+        selectedTicketIDs.delete(id);
+
+    updateTotalDisplay();
     toggleBuyButton();
 }
 
-//Updates running total cost display
-function updateTotalDisplay(){
-    const totalPrice = Array.from(selectedTicketIDs).reduce((sum, id) => {         //Convert selectedTicketIds to array
-        const tick = currentTickets.find(x => x.ticket_id === id);                  //For every id, find associated ticket object
-        return sum + (tick ? Number(tick.ticket_price) : 0);                        //Accumulate total ticket price
+
+// ---------------------------
+// Update Total Price
+// ---------------------------
+function updateTotalDisplay() {
+    const total = Array.from(selectedTicketIDs).reduce((sum, id) => {
+        const tick = currentTickets.find(t => t.ticket_id === id);
+        return sum + (tick ? Number(tick.ticket_price) : 0);
     }, 0);
-    document.getElementById("totalAmount").textContent = formatCurrency(totalPrice);        //Update text in UI
+
+    const totalEl = document.getElementById("totalAmount");
+    if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
-//Disables/enables buy button
-function toggleBuyButton(){                                 
-    const buyBtn = document.getElementById("buyBtn");                   //Retrieve buy button element
-    buyBtn.disabled = selectedTicketIDs.size === 0;                     //Disable/enable based on number of elements in selectedTicketIDs
+
+// ---------------------------
+// Enable / Disable Buy Buttons
+// ---------------------------
+function toggleBuyButton() {
+    const disabled = selectedTicketIDs.size === 0;
+
+    const topBtn = document.getElementById("buyBtn");          // old/top button
+    const bottomBtn = document.getElementById("buyBtnBottom"); // footer button
+
+    if (topBtn) topBtn.disabled = disabled;
+    if (bottomBtn) bottomBtn.disabled = disabled;
 }
 
+
+// ---------------------------
+// Complete Purchase
+// ---------------------------
 async function buySelected() {
-    if (selectedTicketIDs.size === 0) return;                    //User can't buy anything if no tickets are selected
-    const selectedTickets = Array.from(selectedTicketIDs);          //Convert selected tickets set to array
+    if (selectedTicketIDs.size === 0) return;
+
+    const selectedTickets = Array.from(selectedTicketIDs);
+
     try {
         showLoadingScreen();
-        const response = await fetch(`${apiBase}/api/orders`, {         //POST to send order information along with cookies
+
+        const response = await fetch(`${apiBase}/api/orders`, {
             method: "POST",
             credentials: "include",
-            headers: {"Content-Type": "application/json"},              //Send selected tickets and payment method
-            body: JSON.stringify({selectedTickets, payMethod: "Credit"})
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tickets: selectedTickets, payMethod: "Credit" })
         });
 
-        if (response.status === 401){                       //Handle response error
+        if (response.status === 401) {
             hideLoadingScreen();
             requireAuth();
             return;
         }
 
         const result = await response.json();
-        if (!response.ok){                                  //Erorr message display if backend returns errors
+
+        if (!response.ok) {
             const message = result.error || result.message || "Purchase failed";
             showMessage(message, "error");
             return;
         }
 
-        showMessage("Successful purchase!", "success");         //Redirect when purchase is success
-        window.location.href = `order-confirm.html?id=${result.orderId}`;
-    } catch (error) {                                       //Error handling and logging
+        showMessage("Successful purchase!", "success");
+        window.location.href = `order-confirm.html?id=${result.oID}`;
+
+    } catch (error) {
         console.error("buySelected", error);
         showMessage("Server error during purchase", "error");
     } finally {

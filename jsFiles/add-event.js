@@ -3,26 +3,37 @@ Load venues and add events
 */
 
 //Load venues from backend and fill dropdown menu
-async function loadVenues(){
-    const response = await fetch(`${apiBase}/api/events/venues`, {credentials: "include"});     //GET request to backend for venues, sending sessions cookies as well
-    if (response.status === 401) return requireAuth();
-    const venueData = await response.json();                                 //Convert JSON response to JS object
-
-    const select = document.getElementById("venue_id");         //Get <select> element with id venue_id (dropdown menu element)
-    select.innerHTML="";                                        //Clean dropdown
-
-    venueData.venues.forEach(v => {                             //Loop through each venue returned
-        select.innerHTML += `<option value="${v.venue_id}">${v.venue_name} (${v.city})</option>`;       //Store venue id, display venue name and city
+async function loadVenues() {
+    const res = await fetch(`${apiBase}/api/organizer/events/venues`, {
+        credentials: "include"
     });
-    
+
+    if (!res.ok) {
+        console.error("Could not load venues, status:", res.status);
+        return;
+    }
+
+    const data = await res.json();
+    const select = document.getElementById("eventVenue");
+
+    // Clear old options
+    select.innerHTML = "";
+
+    data.venues.forEach(v => {
+        const option = document.createElement("option");
+        option.value = v.venue_id;
+        option.textContent = v.venue_name;
+        select.appendChild(option);
+    });
 }
+
 
 //Send event data to backend to create new event
 document.getElementById("eventForm").addEventListener("submit", async (e) => {      //Add submit event listener to eventForm form
     e.preventDefault();                                         //Prevent default form submission
 
     const reqBody = {                                           //Request body: event venue ID, title, description, start/end times, price, and status
-        venue_id: document.getElementById("venue_id").value,
+        venue_id: document.getElementById("eventVenue").value,
         title: document.getElementById("title").value,
         event_description: document.getElementById("event_description").value,
         start_time: document.getElementById("start_time").value,
