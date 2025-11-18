@@ -1,25 +1,34 @@
 let currentTickets = [];                                // Tickets returned by backend
 let selectedTicketIDs = new Set();                      // User-selected ticket IDs (no duplicates)
 
+function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
 
-// ---------------------------
-// Initial Page Setup
-// ---------------------------
 async function initBuyPage() {
     try {
-        await loadEventDropdown();  
-        document.getElementById("eventSelect")
-            .addEventListener("change", onEventChange);
+        await loadEventDropdown();
+
+        const selectEl = document.getElementById("eventSelect");
+        selectEl.addEventListener("change", onEventChange);
+
+        // If coming from events.html with ?event_id=...
+        const preselectedID = getQueryParam("event_id");
+        if (preselectedID) {
+            selectEl.value = preselectedID;
+
+            // Only proceed if that value actually exists in the dropdown
+            if (selectEl.value === preselectedID) {
+                await onEventChange({ target: selectEl });
+            }
+        }
     } catch (error) {
         console.error("initBuyPage", error);
         showMessage("Could not initialize buy page.", "error");
     }
 }
 
-
-// ---------------------------
-// Load Events into Dropdown
-// ---------------------------
 async function loadEventDropdown() {
     try {
         showLoadingScreen();
@@ -35,7 +44,7 @@ async function loadEventDropdown() {
         const select = document.getElementById("eventSelect");
 
         select.innerHTML = `<option value="">--- Select Event ---</option>`;
-        
+
         (data.events || []).forEach(ev => {
             const option = document.createElement("option");
             option.value = ev.event_id;
@@ -52,10 +61,6 @@ async function loadEventDropdown() {
     }
 }
 
-
-// ---------------------------
-// When user selects an event
-// ---------------------------
 async function onEventChange(event) {
     const eID = event.target.value;
 
@@ -65,16 +70,67 @@ async function onEventChange(event) {
 
     if (!eID) {
         renderTickets([]);
+        renderEventDetails(null, null);
         return;
     }
 
-    await loadAvailableTickets(eID);
+    // Load BOTH event details and available tickets
+    await Promise.all([
+        loadEventDetails(eID),
+        loadAvailableTickets(eID)
+    ]);
 }
 
+async function loadEventDetails(eID) {
+    try {
+        const response = await fetch(`${apiBase}/api/events/${eID}`, {
+            credentials: "include"
+        });
 
-// ---------------------------
-// Load Tickets for Event
-// ---------------------------
+        if (response.status === 401) {
+            requireAuth();
+            return;
+        }
+
+        const data = await response.json();
+        renderEventDetails(data.event, data.ticketCounts);
+
+    } catch (error) {
+        console.error("loadEventDetails", error);
+        showMessage("Could not load event details.", "error");
+    }
+}
+
+function renderEventDetails(event, ticketCounts) {
+    const box = document.getElementById("eventDetails");
+    if (!box) return;
+
+    if (!event) {
+        box.innerHTML = "<p>Select an event to see details.</p>";
+        return;
+    }
+
+    let ticketsSummary = "";
+    if (Array.isArray(ticketCounts) && ticketCounts.length) {
+        const parts = ticketCounts.map(
+            tc => `${tc.ticket_status}: ${tc.tcount}`
+        );
+        ticketsSummary = `<p><strong>Tickets:</strong> ${parts.join(", ")}</p>`;
+    }
+
+    box.innerHTML = `
+        <h3>${event.title}</h3>
+        <p><strong>Venue:</strong> ${event.venue_name || ""} (${event.city || ""})</p>
+        <p><strong>Start:</strong> ${
+            event.start_time ? new Date(event.start_time).toLocaleString() : ""
+        }</p>
+        ${event.end_time ? `<p><strong>End:</strong> ${new Date(event.end_time).toLocaleString()}</p>` : ""}
+        <p><strong>Status:</strong> ${event.event_status || ""}</p>
+        <p><strong>Description:</strong> ${event.event_description || "No description provided."}</p>
+        ${ticketsSummary}
+    `;
+}
+
 async function loadAvailableTickets(eID) {
     try {
         showLoadingScreen();
@@ -102,10 +158,6 @@ async function loadAvailableTickets(eID) {
     }
 }
 
-
-// ---------------------------
-// Render Table of Tickets
-// ---------------------------
 function renderTickets(tickets) {
     const tBody = document.querySelector("#ticketsTable tbody");
     tBody.innerHTML = "";
@@ -144,10 +196,6 @@ function renderTickets(tickets) {
     });
 }
 
-
-// ---------------------------
-// When a ticket checkbox is clicked
-// ---------------------------
 function onTicketToggle(eventTicket) {
     const id = Number(eventTicket.target.value);
 
@@ -160,10 +208,6 @@ function onTicketToggle(eventTicket) {
     toggleBuyButton();
 }
 
-
-// ---------------------------
-// Update Total Price
-// ---------------------------
 function updateTotalDisplay() {
     const total = Array.from(selectedTicketIDs).reduce((sum, id) => {
         const tick = currentTickets.find(t => t.ticket_id === id);
@@ -174,14 +218,10 @@ function updateTotalDisplay() {
     if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
-
-// ---------------------------
-// Enable / Disable Buy Buttons
-// ---------------------------
 function toggleBuyButton() {
     const disabled = selectedTicketIDs.size === 0;
 
-    const topBtn = document.getElementById("buyBtn");          // old/top button
+    const topBtn = document.getElementById("buyBtn");          // old/top button (if present)
     const bottomBtn = document.getElementById("buyBtnBottom"); // footer button
 
     if (topBtn) topBtn.disabled = disabled;
@@ -189,13 +229,12 @@ function toggleBuyButton() {
 }
 
 
-// ---------------------------
-// Complete Purchase
-// ---------------------------
 async function buySelected() {
     if (selectedTicketIDs.size === 0) return;
 
     const selectedTickets = Array.from(selectedTicketIDs);
+    console.log("selectedTickets:", selectedTickets);
+
 
     try {
         showLoadingScreen();
@@ -204,7 +243,9 @@ async function buySelected() {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ tickets: selectedTickets, payMethod: "Credit" })
+            body: JSON.stringify({
+            tickets: selectedTickets,
+            payMethod: "Credit"})
         });
 
         if (response.status === 401) {

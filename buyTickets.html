@@ -20,6 +20,11 @@
         <!-- Page Title -->
         <h2 class="page-title">Buy Tickets</h2>
 
+        <div id="eventDetails" class="event-details-card">
+            <!-- Filled dynamically by buyTickets.js -->
+            <p>Select an event to see details.</p>
+        </div>
+
         <!-- Event Filter Box -->
         <div class="filter-box">
             <label for="eventSelect">Choose Event:</label>
@@ -53,7 +58,6 @@
             <strong>Total: </strong>
             <span id="totalAmount">$0.00</span>
 
-            <!-- IMPORTANT: New unique ID -->
             <button id="buyBtnBottom" onclick="buySelected()" disabled>
                 Purchase Tickets
             </button>

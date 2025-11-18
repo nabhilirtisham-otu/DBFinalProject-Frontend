@@ -6,6 +6,7 @@ function getQueryParam(paraName){
 
 //Loads order confirmation page
 async function loadOrderConfirm(){
+
     const oID = getQueryParam("id")                 //Fetch id query parameter
     if (!oID){                                      //Error handling when no order ID provided
         showMessage("No order ID given", "error");
@@ -27,11 +28,16 @@ async function loadOrderConfirm(){
             showMessage("Could not fetch order information", "error");
             return;
         }
+        if (!orderData.order) {
+            console.error("Order data missing:", orderData);
+            showMessage("Order not found.", "error");
+            return;
+        }
 
         renderOrder(orderData.order, orderData.tickets, orderData.payments);            //Draw order, ticket, and payment information on UI
     } catch (error) {                                   //Error handling and logging
         console.error("loadOrderConfirm", error);
-        showMessage("Server errorr while loading order", "error");
+        showMessage("Server error while loading order", "error");
     } finally {
         hideLoadingScreen();
     }
@@ -39,6 +45,10 @@ async function loadOrderConfirm(){
 
 //Displays order data, tickets list, and payments list information
 function renderOrder(order, tickets, payments){
+     if (!order) {
+        showMessage("Order details missing.", "error");
+        return;
+    }
     const orderInfo = document.getElementById("orderSummary");              //Find orderSummary box in HTML page and clean it
     orderInfo.innerHTML = "";
 
@@ -68,11 +78,6 @@ function renderOrder(order, tickets, payments){
     ticketsTable.style.width = "100%";                              //Basic table styling
     ticketsTable.innerHTML = `<thead>${tHead}</thead><tbody>${tRows}</tbody>`;          //Insert header and rows into table
     orderInfo.appendChild(ticketsTable);                            //Add finished table to HTML page
-
-    let pay = null;
-    if (payments && payments.length){                               //Check if payment exists and take the payment object
-        pay = payments[0];
-    }
 
     const paymentBox = document.createElement("div");               //Create section displaying payment method, amount, and status
     paymentBox.innerHTML =
