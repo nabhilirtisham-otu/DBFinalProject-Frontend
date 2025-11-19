@@ -57,31 +57,6 @@ body {
     padding: 0px;
 }
 
-footer div a {
-    text-decoration: none;
-    font-size: 18px;
-    padding: 10px 15px; 
-    color: var(--raisin-black);
-    transition: background-color 0.3s, border-radius 0.3s;
-    border-radius: 30px;
-    border: 2px solid transparent;
-}
-
-footer div a:hover {
-    background-color: var(--tinted-black);
-    border-radius: 30px; 
-    border-color: var(--raisin-black);
-}
-
-footer {
-	display: flex;
-	justify-content: center;
-	padding: 40px;
-	color: var(--raisin-black);
-	border: 2px var(--raisin-black) solid;
-	margin-top: 10%;
-}
-
 .login_container {
     text-align: center;
     width: 300px;         /* controls how wide the box is */

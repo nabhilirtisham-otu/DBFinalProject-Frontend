@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Buy Tickets</title>
+    <link rel="stylesheet" href="./cssFiles/style.css" />
+</head>
+
+<body onload="requireAuth(); initBuyPage();">
+    <div class="navbar">
+        <a href="userevents.html">Events</a>
+        <div class="center_navbar">
+            <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+        </div>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="main_body">
+
+        <!-- Page Title -->
+        <h2 class="page-title">Buy Tickets</h2>
+
+        <div id="eventDetails" class="event-details-card">
+            <!-- Filled dynamically by buyTickets.js -->
+            <p>Select an event to see details.</p>
+        </div>
+
+        <!-- Event Filter Box -->
+        <div class="filter-box">
+            <label for="eventSelect">Choose Event:</label>
+            <select id="eventSelect">
+                <option value="">-- Select Event --</option>
+            </select>
+        </div>
+
+        <!-- Ticket Table Card -->
+        <div class="ticket-card">
+            <h3 class="ticket-title">Available Tickets</h3>
+
+            <div class="table-wrapper-buy">
+                <table id="ticketsTable">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Seat</th>
+                            <th>Section</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Main Purchase Row -->
+        <div class="purchase-box">
+            <strong>Total: </strong>
+            <span id="totalAmount">$0.00</span>
+
+            <button id="buyBtnBottom" onclick="buySelected()" disabled>
+                Purchase Tickets
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="./jsFiles/config.js"></script>
+    <script src="./jsFiles/auth.js"></script>
+    <script src="./jsFiles/ui.js"></script>
+    <script src="./jsFiles/buyTickets.js"></script>
+</body>
+</html>
