@@ -24,7 +24,7 @@ async function loadEvent(){
 
 //Load venues from backend and fill dropdown menu
 async function loadVenues(){
-    const response = await fetch(`${apiBase}/api/events/venues`, {credentials: "include"});     //GET request to backend for venues, sending sessions cookies as well
+    const response = await fetch(`${apiBase}/api/events/venues/all`, {credentials: "include"});     //GET request to backend for venues, sending sessions cookies as well
     const venueData = await response.json();                                 //Convert JSON response to JS object
 
     const select = document.getElementById("venue_id");         //Get <select> element with id venue_id (dropdown menu element)

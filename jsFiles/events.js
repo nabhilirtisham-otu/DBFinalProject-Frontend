@@ -2,6 +2,10 @@
 Performs city filtering and table rendering
 */
 console.log("Loaded: events.js");
+
+let buyTicketsPage = "userbuyTickets.html";
+let buyTargetResolved = false;
+
 async function loadEvents(){
     const sTerm = document.getElementById("searchTerm").value;      //Read search term input
     const sDate = document.getElementById("startDate").value;      //Read start date input
@@ -15,8 +19,10 @@ async function loadEvents(){
     const tBody = document.querySelector("#eventDisplay tbody");        //Assign <tbody> in the table to a variable
     tBody.innerHTML = "";                                      //Clean table body
 
-    tData.events.forEach(ev => {                                //Insert event information into the event display table for every event object in returned data
-        const evRow = `<tr onclick="window.location.href='buyTickets.html?event_id=${ev.event_id}'" style="cursor:pointer">
+    const targetPage = await resolveBuyTicketsTarget();
+
+    (tData.events || []).forEach(ev => {                                //Insert event information into the event display table for every event object in returned data
+        const evRow = `<tr onclick="window.location.href='${targetPage}?event_id=${ev.event_id}'" style="cursor:pointer">
         <td>${ev.title}</td>
         <td>${ev.city}</td>
         <td>${new Date(ev.start_time).toLocaleString()}</td>
@@ -60,3 +66,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadCities();
     await loadEvents();
 });
+
+async function resolveBuyTicketsTarget() {
+    if (buyTargetResolved) return buyTicketsPage;
+
+    try {
+        const response = await fetch(`${apiBase}/api/auth/session`, { credentials: "include" });
+
+        if (response.ok) {
+            const session = await response.json();
+            const role = session.user?.role;
+            if (role === "Organizer") {
+                buyTicketsPage = "orgbuyTickets.html";
+            } else if (role) {
+                buyTicketsPage = "userbuyTickets.html";
+            }
+        } else {
+            buyTicketsPage = "userbuyTickets.html";
+        }
+    } catch (error) {
+        console.error("resolveBuyTicketsTarget", error);
+        buyTicketsPage = "userbuyTickets.html";
+    } finally {
+        buyTargetResolved = true;
+    }
+
+    return buyTicketsPage;
+}
