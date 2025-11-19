@@ -34,8 +34,11 @@
         <h3 class="ticket-title">Add Ticket</h3>
 
         <form id="ticketForm" class="form-layout">
-            <input type="number" id="seat_id" placeholder="Seat ID" required>
-            <input type="number" id="seat_price" placeholder="Seat Price" required>
+            <select id="seat_select" required>
+                <option value="">-- Select Available Seat --</option>
+            </select>
+            <input type="number" id="seat_price" placeholder="Seat Price" required min="0" step="0.01">
+            <small id="seatHelper" class="helper-text"></small>
 
             <button type="submit" class="primary-btn">Add Ticket</button>
         </form>

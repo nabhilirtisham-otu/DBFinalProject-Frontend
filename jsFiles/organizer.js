@@ -66,6 +66,10 @@ function manageTickets(eventID){
     window.location.href=`tickets.html?event_id=${eventID}`;                  //Switch to manage tickets page
 }
 
+function viewOrderHistory(){
+    window.location.href = "orders.html";
+}
+
 //Delete an event
 async function deleteEvent(eventID){
     if (!confirm("Are you sure you want to delete this event?")) return;        //Confirmation message

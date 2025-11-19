@@ -1,6 +1,31 @@
+let navConfigured = false;
+
+async function configureOrdersNav() {
+    if (navConfigured) return;
+
+    try {
+        const response = await fetch(`${apiBase}/api/auth/session`, { credentials: "include" });
+        if (!response.ok) return;
+
+        const session = await response.json();
+        const isOrganizer = session.user?.role === "Organizer";
+
+        const eventsLink = document.getElementById("navEventsLink");
+        const dashboardLink = document.getElementById("navDashboardLink");
+
+        if (eventsLink) eventsLink.href = isOrganizer ? "orgevents.html" : "userevents.html";
+        if (dashboardLink) dashboardLink.href = isOrganizer ? "orgDashboard.html" : "userDashboard.html";
+
+        navConfigured = true;
+    } catch (error) {
+        console.error("configureOrdersNav", error);
+    }
+}
+
 //Load and display user orders
 async function loadOrders() {
     try{
+        await configureOrdersNav();
         showLoadingScreen();
 
         const response = await fetch(`${apiBase}/api/orders`, { credentials: "include"});           //GET request for order information
@@ -10,11 +35,23 @@ async function loadOrders() {
             return;
         }
 
+        if (!response.ok) {
+            showMessage("Could not load orders.", "error");
+            return;
+        }
+
         const orderData = await response.json();            //Convert order data JSON to JS object
         const tBody = document.querySelector("#ordersTable tbody");         //Select order table body in orders HTML page
         tBody.innerHTML = "";                                //Clean body content
 
-        (orderData.orders || []).forEach(ord => {              //For every order in orderData (or fallback empty array)
+        const orders = orderData.orders || [];
+
+        if (!orders.length) {
+            tBody.innerHTML = `<tr><td colspan="5">No orders yet.</td></tr>`;
+            return;
+        }
+
+        orders.forEach(ord => {              //For every order in orderData (or fallback empty array)
             const tRow = document.createElement("tr");          //Create new table row element
             tRow.innerHTML =                                    //Display order ID, date, amount, status, and a linnk to the confirmation page
                 `<td>${ord.order_id}</td>

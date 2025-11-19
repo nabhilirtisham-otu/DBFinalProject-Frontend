@@ -59,6 +59,11 @@ document.getElementById("eventForm").addEventListener("submit", async (e) => {  
         return;
     }
 
+    if (standard_price < 0) {
+        showMessage("Standard price cannot be negative.", "error");
+        return;
+    }
+
     const normalizeDateTime = (value) => {
         if (!value) return null;
         if (value.length === 16) return `${value}:00`; // add seconds when missing

@@ -3,7 +3,7 @@ Performs city filtering and table rendering
 */
 console.log("Loaded: events.js");
 
-let buyTicketsPage = "userbuyTickets.html";
+let buyTicketsPage = "login.html";
 let buyTargetResolved = false;
 
 async function loadEvents(){
@@ -19,10 +19,8 @@ async function loadEvents(){
     const tBody = document.querySelector("#eventDisplay tbody");        //Assign <tbody> in the table to a variable
     tBody.innerHTML = "";                                      //Clean table body
 
-    const targetPage = await resolveBuyTicketsTarget();
-
     (tData.events || []).forEach(ev => {                                //Insert event information into the event display table for every event object in returned data
-        const evRow = `<tr onclick="window.location.href='${targetPage}?event_id=${ev.event_id}'" style="cursor:pointer">
+        const evRow = `<tr onclick="handleEventClick(${ev.event_id})" style="cursor:pointer">
         <td>${ev.title}</td>
         <td>${ev.city}</td>
         <td>${new Date(ev.start_time).toLocaleString()}</td>
@@ -82,14 +80,25 @@ async function resolveBuyTicketsTarget() {
                 buyTicketsPage = "userbuyTickets.html";
             }
         } else {
-            buyTicketsPage = "userbuyTickets.html";
+            buyTicketsPage = "login.html";
         }
     } catch (error) {
         console.error("resolveBuyTicketsTarget", error);
-        buyTicketsPage = "userbuyTickets.html";
+        buyTicketsPage = "login.html";
     } finally {
         buyTargetResolved = true;
     }
 
     return buyTicketsPage;
 }
+
+window.handleEventClick = async function(eventID) {
+    const targetPage = await resolveBuyTicketsTarget();
+
+    if (targetPage === "login.html") {
+        window.location.href = "login.html";
+        return;
+    }
+
+    window.location.href = `${targetPage}?event_id=${eventID}`;
+};

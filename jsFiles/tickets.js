@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);                      //Read query parameters from URL
 const eID = urlParams.get("event_id");                      //Extract event ID from URL object
 let eventLoaded = false;
+let availableSeats = [];
 
 async function initTicketsPage(){
     if (!eID){
@@ -10,14 +11,15 @@ async function initTicketsPage(){
 
     await Promise.all([
         loadEventDetails(),
-        loadTickets()
+        loadTickets(),
+        loadAvailableSeats()
     ]);
 }
 
 //Ticket retrieval and display
 async function loadTickets(){
     try {
-        const response = await fetch (`${apiBase}/api/tickets?event_id=${eID}`, {       //GET request (along with session cookies) for specified event information
+        const response = await fetch (`${apiBase}/api/tickets?eID=${eID}`, {       //GET request (along with session cookies) for specified event information
             credentials: "include"
         });
 
@@ -101,30 +103,90 @@ async function loadEventDetails(){
     }
 }
 
+async function loadAvailableSeats(){
+    try {
+        const response = await fetch(`${apiBase}/api/tickets/available-seats?eventId=${eID}`, { credentials: "include" });
+
+        if (response.status === 401) {
+            requireAuth();
+            return;
+        }
+
+        if (response.status === 403) {
+            showMessage("Not authorized to view available seats for this event.", "error");
+            return;
+        }
+
+        if (!response.ok) {
+            showMessage("Could not load available seats.", "error");
+            return;
+        }
+
+        const data = await response.json();
+        availableSeats = data.seats || [];
+        populateSeatSelect();
+    } catch (error) {
+        console.error("loadAvailableSeats", error);
+        showMessage("Server error while loading seats.", "error");
+    }
+}
+
+function populateSeatSelect(){
+    const select = document.getElementById("seat_select");
+    const helper = document.getElementById("seatHelper");
+    if (!select) return;
+
+    select.innerHTML = `<option value="">-- Select Available Seat --</option>`;
+
+    if (!availableSeats.length) {
+        select.disabled = true;
+        if (helper) helper.textContent = "No available seats remain for this venue.";
+        return;
+    }
+
+    select.disabled = false;
+    if (helper) helper.textContent = "";
+
+    availableSeats.forEach(seat => {
+        const label = seat.seat_label ||
+            `${seat.row_num ?? ""}-${seat.seat_number ?? ""}`.replace(/^-/, "").replace(/-$/, "");
+        const option = document.createElement("option");
+        option.value = label;
+        option.textContent = seat.section_name ? `${label} (${seat.section_name})` : label;
+        select.appendChild(option);
+    });
+}
+
 //Ticket creation button
 document.getElementById("ticketForm").addEventListener("submit", async (e) =>{      //Add event listener to submit button
     e.preventDefault();                                     //Prevent default behavior (page refresh)
 
-    const seatID = Number(document.getElementById("seat_id").value);
+    const seatSelect = document.getElementById("seat_select");
+    const seatLabel = (seatSelect?.value || "").trim().toUpperCase();
     const seatPrice = Number(document.getElementById("seat_price").value);
 
-    if (!seatID || Number.isNaN(seatPrice)) {
-        showMessage("Please enter valid seat and price values.", "error");
+    if (!seatLabel) {
+        showMessage("Please select a seat.", "error");
         return;
     }
 
-    const reqBody = {                                       //POST body sent to backend (event and seat id, ticket price)
-        event_id: Number(eID),
-        seat_id: seatID,
-        ticket_price: seatPrice
-    };
+    if (Number.isNaN(seatPrice) || seatPrice <= 0) {
+        showMessage("Please enter a valid price.", "error");
+        return;
+    }
 
     try {
         const response = await fetch (`${apiBase}/api/tickets`,{                 //POST request sent to backend including session cookies and JSON body
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
-            body: JSON.stringify(reqBody)
+            body: JSON.stringify({
+                eventId: Number(eID),
+                seatNumber: seatLabel,
+                seatLabel,
+                ticketPrice: seatPrice,
+                tPrice: seatPrice
+            })
         });
 
         if (response.status === 401) {
@@ -145,7 +207,9 @@ document.getElementById("ticketForm").addEventListener("submit", async (e) =>{  
 
         showMessage("Ticket added successfully.", "success");
         document.getElementById("ticketForm").reset();
-        loadTickets();                                          //Reload tickets list
+        if (seatSelect) seatSelect.value = "";
+        await loadTickets();                                          //Reload tickets list
+        await loadAvailableSeats();
     } catch (error) {
         console.error("createTicket", error);
         showMessage("Server error while creating ticket.", "error");
@@ -176,8 +240,8 @@ async function updateTicket(tID){
             headers: {"Content-Type": "application/json"},
             credentials: "include",
             body: JSON.stringify({
-                ticket_price: newTicketPrice,
-                ticket_status: cleanedStatus
+                tPrice: newTicketPrice,
+                tStatus: cleanedStatus
             })
         });
 
@@ -209,5 +273,6 @@ async function deleteTicket(tID){
         credentials: "include"
     });
 
-    loadTickets();                                          //Refresh ticket list with updated information
+    await loadTickets();                                          //Refresh ticket list with updated information
+    await loadAvailableSeats();
 }

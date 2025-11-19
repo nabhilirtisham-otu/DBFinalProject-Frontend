@@ -39,14 +39,32 @@ async function loadVenues(){
 document.getElementById("editForm").addEventListener("submit", async (e) => {           //Add submit event listener to editForm form
     e.preventDefault();                                         //Prevent default form submission
 
+    const venue_id = document.getElementById("venue_id").value;
+    const title = document.getElementById("title").value.trim();
+    const event_description = document.getElementById("event_description").value.trim();
+    const start_time = document.getElementById("start_time").value;
+    const end_time = document.getElementById("end_time").value;
+    const standard_price = Number(document.getElementById("standard_price").value);
+    const event_status = document.getElementById("event_status").value;
+
+    if (!venue_id || !title || !event_description || !start_time || !end_time || Number.isNaN(standard_price)) {
+        showMessage("Please fill all fields before submitting.", "error");
+        return;
+    }
+
+    if (standard_price < 0) {
+        showMessage("Standard price cannot be negative.", "error");
+        return;
+    }
+
     const reqBody = {                                           //Request body: event venue ID, title, description, start/end times, price, and status
-        venue_id: document.getElementById("venue_id").value,
-        title: document.getElementById("title").value,
-        event_description: document.getElementById("event_description").value,
-        start_time: document.getElementById("start_time").value,
-        end_time: document.getElementById("end_time").value,
-        standard_price: document.getElementById("standard_price").value,
-        event_status: document.getElementById("event_status").value
+        venue_id,
+        title,
+        event_description,
+        start_time,
+        end_time,
+        standard_price,
+        event_status
     };
 
     await fetch(`${apiBase}/api/organizer/events/${eID}`, {               //Send PUT request to backend providing event information, along with session cookies

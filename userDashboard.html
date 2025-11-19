@@ -9,7 +9,7 @@ User dashboard with chart and filters
         <title>Dashboard</title>
         <link rel="stylesheet" href="./cssFiles/style.css"/>
     </head>
-    <body onload="requireAuth(); loadChart();">
+    <body onload="requireAuth(); loadChart(); loadOrderHistory();">
         <div class="navbar">
             <a href="userevents.html">Events</a>
             <div class="center_navbar">
@@ -21,9 +21,30 @@ User dashboard with chart and filters
     <div class="main_body">
         <div class="dashboard-header">
             <h2>Your Dashboard</h2>
-            <a href="userviews.txt" class="views-btn">Load Views</a>
+            <a href="userviews.html" class="views-btn">Load Views</a>
         </div>
 
+        <div class="order-history-card">
+            <div class="order-history-header">
+                <h3>Recent Orders</h3>
+                <a href="orders.html" class="view-all-link">View all orders</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderHistoryBody"></tbody>
+                </table>
+                <p id="orderHistoryEmpty" class="empty-state">No orders yet. Purchases will appear here.</p>
+            </div>
+        </div>
 
         <h2>For all your tickiting needs</h2>
 
@@ -70,6 +91,7 @@ User dashboard with chart and filters
         <script src="./libs/chart.min.js" defer></script>
         <script src="./jsFiles/auth.js" defer></script>
         <script src="./jsFiles/charts.js" defer></script>
+        <script src="./jsFiles/userDashboard.js" defer></script>
 
         <footer>
 			<div class="footerdiv">

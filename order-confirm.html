@@ -12,9 +12,9 @@
     <body onload="requireAuth(); loadOrderConfirm();">
 
         <div class="navbar">
-            <a href="userevents.html">Events</a>
+            <a id="navEventsLink" href="userevents.html">Events</a>
             <div class="center_navbar">
-                <a href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
+                <a id="navDashboardLink" href="userDashboard.html" class="title-link"><h1>TickIt</h1></a>
             </div>
             <button onclick="logout()">Logout</button>
 	    </div>
@@ -26,7 +26,7 @@
                 <!-- JS will populate content here -->
             </div>
 
-            <a href="userevents.html" class="back-btn">Back to Events</a>
+            <a id="backToEventsLink" href="userevents.html" class="back-btn">Back to Events</a>
         </div>
 
         <!--Scripts-->

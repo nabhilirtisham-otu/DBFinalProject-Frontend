@@ -4,6 +4,31 @@ function getQueryParam(paraName){
     return queryParams.get(paraName);                   //Retrieve value for specific query parameter
 }
 
+let navConfigured = false;
+
+async function setNavigationLinks() {
+    if (navConfigured) return;
+    try {
+        const response = await fetch(`${apiBase}/api/auth/session`, { credentials: "include" });
+        if (!response.ok) return;
+
+        const session = await response.json();
+        const isOrganizer = session.user?.role === "Organizer";
+
+        const eventsLink = document.getElementById("navEventsLink");
+        const dashboardLink = document.getElementById("navDashboardLink");
+        const backLink = document.getElementById("backToEventsLink");
+
+        if (eventsLink) eventsLink.href = isOrganizer ? "orgevents.html" : "userevents.html";
+        if (dashboardLink) dashboardLink.href = isOrganizer ? "orgDashboard.html" : "userDashboard.html";
+        if (backLink) backLink.href = isOrganizer ? "orgevents.html" : "userevents.html";
+
+        navConfigured = true;
+    } catch (error) {
+        console.error("setNavigationLinks", error);
+    }
+}
+
 //Displays order data, tickets list, and payments list information
 function renderOrder(order, tickets, payments){
      if (!order) {
@@ -61,6 +86,7 @@ async function loadOrderConfirm(){
     }
 
     try{
+        await setNavigationLinks();
         showLoadingScreen();
         const response = await fetch(`${apiBase}/api/orders/${order_id}`, {credentials: "include"});     //Send GET to backend (with cookies) for order information for user
         
