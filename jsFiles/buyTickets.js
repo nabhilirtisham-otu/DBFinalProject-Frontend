@@ -221,8 +221,8 @@ function updateTotalDisplay() {
 function toggleBuyButton() {
     const disabled = selectedTicketIDs.size === 0;
 
-    const topBtn = document.getElementById("buyBtn");          // old/top button (if present)
-    const bottomBtn = document.getElementById("buyBtnBottom"); // footer button
+    const topBtn = document.getElementById("buyBtn");
+    const bottomBtn = document.getElementById("buyBtnBottom");
 
     if (topBtn) topBtn.disabled = disabled;
     if (bottomBtn) bottomBtn.disabled = disabled;
@@ -263,12 +263,66 @@ async function buySelected() {
         }
 
         showMessage("Successful purchase!", "success");
-        window.location.href = `order-confirm.html?id=${result.oID}`;
+
+        let createdOrderID = extractOrderID(result);
+
+        if (!createdOrderID) {
+            console.warn("Purchase succeeded but order id missing from response:", result);
+            createdOrderID = await fetchLatestOrderID();
+        }
+
+        if (!createdOrderID) {
+            showMessage("Order created, but confirmation details could not be opened automatically. Please review via Orders page.", "warning");
+            return;
+        }
+
+        window.location.href = `order-confirm.html?id=${createdOrderID}`;
 
     } catch (error) {
         console.error("buySelected", error);
         showMessage("Server error during purchase", "error");
     } finally {
         hideLoadingScreen();
+    }
+}
+
+function extractOrderID(result) {
+    if (!result || typeof result !== "object") return undefined;
+
+    return (
+        result.order_id ||
+        result.orderId ||
+        result.order?.order_id ||
+        result.order?.id ||
+        result.order?.order?.order_id ||
+        result.order?.order?.id ||
+        (Array.isArray(result.order) ? result.order[0]?.order_id : undefined) ||
+        (Array.isArray(result.orders) ? result.orders[0]?.order_id : undefined)
+    );
+}
+
+async function fetchLatestOrderID() {
+    try {
+        const response = await fetch(`${apiBase}/api/orders`, { credentials: "include" });
+        if (response.status === 401) {
+            requireAuth();
+            return undefined;
+        }
+        if (!response.ok) return undefined;
+
+        const data = await response.json();
+        const orders = Array.isArray(data.orders) ? data.orders.slice() : [];
+        if (!orders.length) return undefined;
+
+        orders.sort((a, b) => {
+            const dateDiff = new Date(b.order_date).getTime() - new Date(a.order_date).getTime();
+            if (!Number.isNaN(dateDiff) && dateDiff !== 0) return dateDiff;
+            return (b.order_id || 0) - (a.order_id || 0);
+        });
+
+        return orders[0]?.order_id;
+    } catch (error) {
+        console.error("fetchLatestOrderID", error);
+        return undefined;
     }
 }

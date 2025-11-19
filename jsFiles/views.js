@@ -5,7 +5,20 @@ async function runView(){
     const response = await fetch(`${apiBase}/api/views/${view}`, {     //Fetch view from backend with GET, along with sent cookies
         credentials: "include"
     });
+
+    if (!response.ok) {
+        alert("Error loading view: " + response.status);
+        console.error("Fetch failed:", response.status);
+        return;
+    }
+
     const viewData = await response.json()                  //Convert JSON response to JS object
+
+    if (!viewData.rows || viewData.rows.length === 0) {
+        alert("No data returned for this view.");
+        return;
+    }
+
     const viewInfo = viewData.rows;                         //Extract rows from returned data
 
     if (viewInfo.length === 0) return;                      //If view is empty, exit function

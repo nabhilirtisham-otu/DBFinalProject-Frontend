@@ -4,45 +4,6 @@ function getQueryParam(paraName){
     return queryParams.get(paraName);                   //Retrieve value for specific query parameter
 }
 
-//Loads order confirmation page
-async function loadOrderConfirm(){
-
-    const oID = getQueryParam("id")                 //Fetch id query parameter
-    if (!oID){                                      //Error handling when no order ID provided
-        showMessage("No order ID given", "error");
-        return;
-    }
-
-    try{
-        showLoadingScreen();
-        const response = await fetch(`${apiBase}/api/orders/${oID}`, {credentials: "include"});     //Send GET to backend (with cookies) for order information for user
-        
-        if (response.status === 401){               //Redirection for invalid session
-            hideLoadingScreen();
-            requireAuth();
-            return;
-        }
-
-        const orderData = await response.json();        //Convert backend JSON to JS object
-        if (!response.ok){                              //Error handling if information can't be retrieved
-            showMessage("Could not fetch order information", "error");
-            return;
-        }
-        if (!orderData.order) {
-            console.error("Order data missing:", orderData);
-            showMessage("Order not found.", "error");
-            return;
-        }
-
-        renderOrder(orderData.order, orderData.tickets, orderData.payments);            //Draw order, ticket, and payment information on UI
-    } catch (error) {                                   //Error handling and logging
-        console.error("loadOrderConfirm", error);
-        showMessage("Server error while loading order", "error");
-    } finally {
-        hideLoadingScreen();
-    }
-}
-
 //Displays order data, tickets list, and payments list information
 function renderOrder(order, tickets, payments){
      if (!order) {
@@ -80,11 +41,51 @@ function renderOrder(order, tickets, payments){
     orderInfo.appendChild(ticketsTable);                            //Add finished table to HTML page
 
     const paymentBox = document.createElement("div");               //Create section displaying payment method, amount, and status
-    paymentBox.innerHTML =
+        paymentBox.innerHTML =
         `<h4>Payment</h4>
         <p><strong>Method: </strong>${payments.payment_method}</p>
         <p><strong>Amount: </strong>${formatCurrency(payments.payment_amount)}</p>
         <p><strong>Status: </strong>${payments.payment_status}</p>
     `;
+
     orderInfo.appendChild(paymentBox);
+}
+
+//Loads order confirmation page
+async function loadOrderConfirm(){
+
+    const order_id = getQueryParam("id")                 //Fetch id query parameter
+    if (!order_id){                                      //Error handling when no order ID provided
+        showMessage("No order ID given", "error");
+        return;
+    }
+
+    try{
+        showLoadingScreen();
+        const response = await fetch(`${apiBase}/api/orders/${order_id}`, {credentials: "include"});     //Send GET to backend (with cookies) for order information for user
+        
+        if (response.status === 401){               //Redirection for invalid session
+            hideLoadingScreen();
+            requireAuth();
+            return;
+        }
+
+        const orderData = await response.json();        //Convert backend JSON to JS object
+        if (!response.ok){                              //Error handling if information can't be retrieved
+            showMessage("Could not fetch order information", "error");
+            return;
+        }
+        if (!orderData.order) {
+            console.error("Order data missing:", orderData);
+            showMessage("Order not found.", "error");
+            return;
+        }
+
+        renderOrder(orderData.order, orderData.tickets, orderData.payments[0]);            //Draw order, ticket, and payment information on UI
+    } catch (error) {                                   //Error handling and logging
+        console.error("loadOrderConfirm", error);
+        showMessage("Server error while loading order", "error");
+    } finally {
+        hideLoadingScreen();
+    }
 }
