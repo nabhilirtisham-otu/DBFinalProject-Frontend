@@ -79,8 +79,6 @@ footer {
 	padding: 40px;
 	color: var(--raisin-black);
 	border: 2px var(--raisin-black) solid;
-	/* color: var(--cool-gray); */
-	/*background-color: var(--flax);*/
 	margin-top: 10%;
 }
 
@@ -248,7 +246,7 @@ body {
     width: 100%;
 }
 
-/* REVERSE ORDER (no flex-direction used) */
+/* REVERSE ORDER */
 .row.reverse p { order: 1; }
 .row.reverse img { order: 2; }
 
@@ -258,7 +256,7 @@ body {
     height: 300px;          /* fixed height so both images match */
     object-fit: cover;      /* crops nicely instead of stretching */
     border-radius: 15px;    /* rounded corners */
-    border: 3px solid #ccc; /* optional border */
+    border: 3px solid #ccc; 
 }
 
 /* TEXT BOX */
@@ -273,7 +271,7 @@ body {
     border-radius: 10px;    
 }
 
-/* Navbar button styling to match links */
+
 .navbar button {
     background-color: transparent;   /* same as link background */
     color: var(--seasalt);          /* same text color */
@@ -291,8 +289,6 @@ body {
     background-color: var(--tinted-black);
     border-radius: 10px;
 }
-
-/* ---- Dashboard Page Enhancements (Add-On Styles Only) ---- */
 
 /* Center and style the Add New Event button */
 .add-event-container {
@@ -343,7 +339,7 @@ body {
 /* Increase padding inside table cells */
 #eventTable th,
 #eventTable td {
-    padding: 16px 24px !important; /* More breathing room */
+    padding: 16px 24px !important;
 }
 
 /* Add more space between rows */
@@ -362,7 +358,6 @@ body {
     border-spacing: 0 10px; /* adds vertical gaps between rows */
 }
 
-/* Optional: round corners for rows visually */
 #eventTable tbody tr td:first-child {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -462,10 +457,6 @@ body {
     min-height: 120px;
     resize: vertical;
 }
-
-/* -------------------------------------- */
-/* BUY TICKETS PAGE — NEW ADDITIONAL CSS  */
-/* -------------------------------------- */
 
 .logout-btn {
     float: right;
@@ -571,13 +562,11 @@ body {
     padding: 14px 24px;   /* Increase horizontal padding */
 }
 
-/* Optional: Make header look cleaner */
 #ordersTable th {
     font-weight: 600;
     letter-spacing: 0.5px;
 }
 
-/* Optional: increase minimum column width */
 #ordersTable td,
 #ordersTable th {
     min-width: 140px;
@@ -623,10 +612,6 @@ body {
     cursor: pointer;
 }
 
-/* -------------------------------------- */
-/* WEATHER PAGE — PAGE-SPECIFIC STYLING   */
-/* -------------------------------------- */
-
 .weather-container {
     max-width: 900px;
     margin: 40px auto;
@@ -645,7 +630,6 @@ body {
     margin-top: 0;
 }
 
-/* Logout button to match site theme */
 .weather-container button {
     background-color: rgb(187, 0, 255);
     color: var(--seasalt);
@@ -764,7 +748,6 @@ body {
     margin: 20px auto 10px auto;
 }
 
-/* Style for the weather link so it matches your theme */
 .weather-link {
     font-size: 18px;
     color: rgb(255, 255, 255);
@@ -959,7 +942,7 @@ body {
 .dashboard-header {
     display: flex;
     align-items: center;
-    justify-content: center; /* keeps Your Dashboard centered */
+    justify-content: center; 
     position: relative;
     margin-bottom: 20px;
 }
