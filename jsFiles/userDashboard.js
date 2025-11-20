@@ -55,3 +55,5 @@ function formatDate(dateValue) {
     if (Number.isNaN(date.getTime())) return "";
     return date.toLocaleString();
 }
+
+window.addEventListener("orders:updated", () => loadOrderHistory());

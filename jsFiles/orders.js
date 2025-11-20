@@ -47,7 +47,7 @@ async function loadOrders() {
         const orders = orderData.orders || [];
 
         if (!orders.length) {
-            tBody.innerHTML = `<tr><td colspan="5">No orders yet.</td></tr>`;
+            tBody.innerHTML = `<tr><td colspan="6">No orders yet.</td></tr>`;
             return;
         }
 
@@ -59,12 +59,50 @@ async function loadOrders() {
                 <td>${formatCurrency(ord.order_amount)}</td>
                 <td>${ord.order_status}</td>
                 <td><a href="order-confirm.html?id=${ord.order_id}">View Details</a></td>
+                <td>
+                    <button class="danger-btn" onclick="deleteOrder(${ord.order_id})">Delete</button>
+                </td>
             `;
             tBody.appendChild(tRow);                        //Add table row to page table
         });
     } catch (error) {                                       //Error handling and logging
         console.error("loadOrders", error);
         showMessage("Could not load orders.", "error");
+    } finally {
+        hideLoadingScreen();
+    }
+}
+
+async function deleteOrder(orderId){
+    if (!confirm("Are you sure you want to delete this order? Tickets will become available again.")) return;
+
+    try {
+        showLoadingScreen();
+        const response = await fetch(`${apiBase}/api/orders/${orderId}`, {
+            method: "DELETE",
+            credentials: "include"
+        });
+
+        if (response.status === 401) {
+            hideLoadingScreen();
+            requireAuth();
+            return;
+        }
+
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            const message = result.error || result.message || "Could not delete order.";
+            showMessage(message, "error");
+            return;
+        }
+
+        showMessage("Order deleted successfully.", "success");
+        await loadOrders();
+        window.dispatchEvent(new CustomEvent("orders:updated"));
+    } catch (error) {
+        console.error("deleteOrder", error);
+        showMessage("Server error while deleting order.", "error");
     } finally {
         hideLoadingScreen();
     }
