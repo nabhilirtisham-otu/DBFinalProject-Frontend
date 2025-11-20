@@ -35,21 +35,21 @@ This is the frontend for our database final project TickIt. It is a static HTML,
    mkdir cssFiles, jsFiles, images, libs
    ```
    Copy CSS, JS, image, and library files into directories.
-3. **Install tooling to serve the static files**
+3. **Install Tooling to Serve Static Files**
    ```powershell
    npm install
    ```
-4. **Configure API base URL**  
+4. **Configure API Base URL**  
    Update `jsFiles/config.js` if backend doesn't run on `http://127.0.0.1:3000`:
    ```javascript
    //jsFiles/config.js
    const apiBase = "http://127.0.0.1:3000"; //change host or port to match your backend
    ```
-5. **Start backend API** so all `/api/...` calls succeed.
-6. **Serve front-end**
+5. **Start Backend API** so all `/api/...` calls succeed.
+6. **Serve Frontend**
    ```powershell
    http-server . -p 8080
-7. **Log in and verify**
+7. **Log In and Verify**
    Use credentials seeded by backend and test:
    - `userDashboard.html` - confirms Chart.js renders w/ real API data
    - `userevents.html` + `tickets.html` - verifies fetch requests and cookie handling
