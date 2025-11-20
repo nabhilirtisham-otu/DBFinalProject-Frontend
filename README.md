@@ -1,6 +1,6 @@
 # DBFinalProject-Frontend
 
-TickIt is the front-end for our database final project. It is a static HTML, CSS, and vanilla JS site that calls the backend API at `http://127.0.0.1:3000` for authentication, ticket purchasing, weather logging, exports, and organizer workflows.
+This is the front-end for our database final project TickIt. It is a static HTML, CSS, and vanilla JS site that calls the backend API at `http://127.0.0.1:3000` for authentication, ticket purchasing, weather logging, exports, and organizer workflows.
 
 ## Repository Layout
 - `cssFiles/` - CSS styling
@@ -30,7 +30,7 @@ TickIt is the front-end for our database final project. It is a static HTML, CSS
    git clone https://github.com/<your-org>/DBFinalProject-Frontend.git
    cd DBFinalProject-Frontend
    ```
-2. **Create Expected Folders (skip if cloned repo)**
+2. **Create Expected Folders (skip if cloning repo)**
    ```powershell
    mkdir cssFiles, jsFiles, images, libs
    ```
@@ -46,13 +46,13 @@ TickIt is the front-end for our database final project. It is a static HTML, CSS
    const apiBase = "http://127.0.0.1:3000"; // change host or port to match your backend
    ```
 5. **Start backend API** so all `/api/...` calls succeed.
-7. **Serve front-end**
+6. **Serve front-end**
    ```powershell
    http-server . -p 8080
    ```
    Visit `http://127.0.0.1:8080/login.html` (or any of the other pages) in the browser. Because cookies are scoped to the host, keep both the front-end server and backend on the same host (`127.0.0.1` in this example).
-8. **Log in and verify**
+.7 **Log in and verify**
    Use credentials seeded by backend and test:
    - `userDashboard.html` - confirms Chart.js renders w/ real API data
-   - `userevents.html` + `tickets.html` - verifies fetch requests and cookie handling.
-   - `userexport.html` + `orgexport.html` - download CSV and PDF data through backend.
+   - `userevents.html` + `tickets.html` - verifies fetch requests and cookie handling
+   - `userexport.html` + `orgexport.html` - download CSV and PDF data through backend
