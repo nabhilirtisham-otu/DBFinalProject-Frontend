@@ -24,7 +24,7 @@ async function loadVenues() {
         const data = await res.json();
         const select = document.getElementById("eventVenue");
 
-        // Clear old options
+        //Clear old options
         select.innerHTML = "";
 
         (data.venues || []).forEach(v => {
@@ -40,7 +40,6 @@ async function loadVenues() {
         hideLoadingScreen();
     }
 }
-
 
 //Send event data to backend to create new event
 document.getElementById("eventForm").addEventListener("submit", async (e) => {      //Add submit event listener to eventForm form
@@ -66,7 +65,7 @@ document.getElementById("eventForm").addEventListener("submit", async (e) => {  
 
     const normalizeDateTime = (value) => {
         if (!value) return null;
-        if (value.length === 16) return `${value}:00`; // add seconds when missing
+        if (value.length === 16) return `${value}:00`; //add seconds when missing
         return value;
     };
 
@@ -96,6 +95,7 @@ document.getElementById("eventForm").addEventListener("submit", async (e) => {  
     }
 });
 
+//Event creation with fallbacks for error handling
 async function createEventWithFallback(reqBody){
     const attemptEndpoints = [
         { url: `${apiBase}/api/organizer/events`, allowFallbackStatuses: [404, 405, 500, 501, 502, 503, 504] },
@@ -126,7 +126,7 @@ async function createEventWithFallback(reqBody){
             console.error(`create event error via ${url}`, message, payload);
 
             if (allowFallbackStatuses.includes(response.status) && i < attemptEndpoints.length - 1) {
-                continue;       // try next endpoint
+                continue;       //try next endpoint
             }
 
             showMessage(message, "error");
@@ -144,6 +144,7 @@ async function createEventWithFallback(reqBody){
     return { success: false };
 }
 
+//Reads files as JSOSN or text
 async function readJsonOrText(response) {
     try {
         return await response.json();

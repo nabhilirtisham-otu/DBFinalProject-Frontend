@@ -1,3 +1,5 @@
+
+
 :root {
 	--white: #ffffff;
 	--black: #000000;
@@ -199,8 +201,8 @@ body {
     margin-top: 0px;
 }
 
-/* ----- Force-safe row layout ----- */
-.content_section {               /* vertical stacking of rows */
+/*Force-safe row layout */
+.content_section {               /* vertical row stacking */
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -228,9 +230,9 @@ body {
 /* IMAGE SIZING */
 .home_img {
     width: 525px;           /* fixed width so both images match */
-    height: 300px;          /* fixed height so both images match */
+    height: 300px;              /* fixed height so both images match */
     object-fit: cover;      /* crops nicely instead of stretching */
-    border-radius: 15px;    /* rounded corners */
+    border-radius: 15px;        /* rounded corners */
     border: 3px solid #ccc; 
 }
 
@@ -309,7 +311,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* ---- Event Table Spacing Improvements ---- */
+/* Event Table Spacing Improvements */
 
 /* Increase padding inside table cells */
 #eventTable th,
@@ -343,7 +345,7 @@ body {
     border-bottom-right-radius: 8px;
 }
 
-/* ---- Add Event Page Styling ---- */
+/* Add Event Page Styling */
 
 .page-title {
     text-align: center;
@@ -739,7 +741,7 @@ body {
     color: var(--seasalt);
 }
 
-/* -------- Export Page Styling -------- */
+/* Export Page Styling */
 
 .export-title {
     text-align: center;

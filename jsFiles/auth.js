@@ -13,6 +13,7 @@ async function login(email, password){                  //Send an HTTP request t
     return response.json();                             //Convert JSON server response into a JS object
 }
 
+//Runs when user submits registration information
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -42,7 +43,7 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
     setTimeout(() => window.location.href = "login.html", 1500);
 });
 
-
+//Runs when user submits login information
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -57,7 +58,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
         return;
     }
 
-    // role-based redirect
+    //role-based redirect
     if (doLogin.user.role === "Organizer") {
         window.location.href = "./orgDashboard.html";
     } else {

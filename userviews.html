@@ -1,3 +1,7 @@
+<!--
+User page for seeing view information
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,7 @@
 
 <body onload="requireAuth();">
 
-    <!-- Navbar -->
+    <!--Navbar-->
     <div class="navbar">
         <a href="userevents.html">Events</a>
 
@@ -21,32 +25,32 @@
         <button onclick="logout()">Logout</button>
     </div>
     <div class="main_body">
-    <!-- Page Title -->
+    <!--Page Title-->
     <h2 class="page-title">Database Views</h2>
 
-    <!-- View Selector Card -->
+    <!--View Selector Card-->
     <div class="ticket-card">
         <h3 class="ticket-title">Select a View</h3>
 
         <div class="form-layout">
             <select id="viewSelect">
-                <option value="1">View 1 - Customer Orders</option>
-                <option value="2">View 2 - Database Users</option>
-                <option value="3">View 3 - Event Categories</option>
-                <option value="4">View 4 - Event Sales</option>
-                <option value="5">View 5 - Event Ticket Details</option>
-                <option value="6">View 6 - Full Event Payments</option>
-                <option value="7">View 7 - High Priced Events</option>
-                <option value="8">View 8 - Organizer Revenue</option>
-                <option value="9">View 9 - Unread Notifications</option>
-                <option value="10">View 10 - Upcoming Performances</option>
+                <option value="1">View 1-Customer Orders</option>
+                <option value="2">View 2-Database Users</option>
+                <option value="3">View 3-Event Categories</option>
+                <option value="4">View 4-Event Sales</option>
+                <option value="5">View 5-Event Ticket Details</option>
+                <option value="6">View 6-Full Event Payments</option>
+                <option value="7">View 7-High Priced Events</option>
+                <option value="8">View 8-Organizer Revenue</option>
+                <option value="9">View 9-Unread Notifications</option>
+                <option value="10">View 10-Upcoming Performances</option>
             </select>
 
             <button onclick="runView()" class="primary-btn">Run View</button>
         </div>
     </div>
 
-    <!-- Results Table Card -->
+    <!--Results Table Card-->
     <div class="ticket-card">
         <h3 class="ticket-title">View Results</h3>
 
@@ -58,7 +62,7 @@
         </div>
     </div>
     </div>
-    <!-- Scripts -->
+    <!--Scripts-->
     <script src="./jsFiles/config.js"></script>
     <script src="./jsFiles/auth.js"></script>
     <script src="./jsFiles/views.js"></script>

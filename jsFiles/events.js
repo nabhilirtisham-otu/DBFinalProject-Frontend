@@ -1,11 +1,12 @@
 /*
 Performs city filtering and table rendering
 */
-console.log("Loaded: events.js");
 
+//Initially set the buyTicketPage to redirect to login (changes when user logs in)
 let buyTicketsPage = "login.html";
 let buyTargetResolved = false;
 
+//Load events onto the page
 async function loadEvents(){
     const sTerm = document.getElementById("searchTerm").value;      //Read search term input
     const sDate = document.getElementById("startDate").value;      //Read start date input
@@ -30,6 +31,7 @@ async function loadEvents(){
     });
 }
 
+//Load cities into the dropdown menu
 async function loadCities() {
 
     try {
@@ -41,7 +43,7 @@ async function loadCities() {
 
         const select = document.getElementById("cityFilter");
 
-        // Reset dropdown
+        //Reset dropdown
         select.innerHTML = `<option value="">Any City</option>`;
 
         data.cities.forEach(city => {
@@ -59,12 +61,14 @@ async function loadCities() {
     }
 }
 
-
+//Checks if DOM content is loaded after loading cities and events
 document.addEventListener("DOMContentLoaded", async () => {
     await loadCities();
     await loadEvents();
 });
 
+//Redirects users to the correct buyTickets page based on their role
+//Sends to login.html if user is a guest (not customer or organizer)
 async function resolveBuyTicketsTarget() {
     if (buyTargetResolved) return buyTicketsPage;
 
@@ -92,6 +96,7 @@ async function resolveBuyTicketsTarget() {
     return buyTicketsPage;
 }
 
+//Function to perform above upon event clicked
 window.handleEventClick = async function(eventID) {
     const targetPage = await resolveBuyTicketsTarget();
 

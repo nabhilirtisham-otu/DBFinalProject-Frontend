@@ -1,3 +1,7 @@
+<!--
+Organizer page for buying tickets
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,23 +21,23 @@
 
     <div class="main_body">
 
-        <!-- Page Title -->
+        <!--Page Title-->
         <h2 class="page-title">Buy Tickets</h2>
 
         <div id="eventDetails" class="event-details-card">
-            <!-- Filled dynamically by buyTickets.js -->
+            <!--Filled dynamically by buyTickets.js-->
             <p>Select an event to see details.</p>
         </div>
 
-        <!-- Event Filter Box -->
+        <!--Event Filter Box-->
         <div class="filter-box">
             <label for="eventSelect">Choose Event:</label>
             <select id="eventSelect">
-                <option value="">-- Select Event --</option>
+                <option value="">--Select Event--</option>
             </select>
         </div>
 
-        <!-- Ticket Table Card -->
+        <!--Ticket Table Card-->
         <div class="ticket-card">
             <h3 class="ticket-title">Available Tickets</h3>
 
@@ -53,7 +57,7 @@
             </div>
         </div>
 
-        <!-- Main Purchase Row -->
+        <!--Main Purchase Row-->
         <div class="purchase-box">
             <strong>Total: </strong>
             <span id="totalAmount">$0.00</span>
@@ -65,7 +69,7 @@
 
     </div>
 
-    <!-- Scripts -->
+    <!--Scripts-->
     <script src="./jsFiles/config.js"></script>
     <script src="./jsFiles/auth.js"></script>
     <script src="./jsFiles/ui.js"></script>

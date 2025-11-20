@@ -1,3 +1,7 @@
+/*
+Load event/ticket information, create/edit/delete tickets
+*/
+
 const urlParams = new URLSearchParams(window.location.search);                      //Read query parameters from URL
 const eID = urlParams.get("event_id");                      //Extract event ID from URL object
 let eventLoaded = false;
@@ -68,6 +72,7 @@ async function loadTickets(){
     }
 }
 
+//Load event details (i.e. venue, description, start/end times, etc.)
 async function loadEventDetails(){
     if (eventLoaded) return;
     try {
@@ -103,6 +108,7 @@ async function loadEventDetails(){
     }
 }
 
+//Load seats available for the event (in the venue)
 async function loadAvailableSeats(){
     try {
         const response = await fetch(`${apiBase}/api/tickets/available-seats?eventId=${eID}`, { credentials: "include" });
@@ -131,6 +137,7 @@ async function loadAvailableSeats(){
     }
 }
 
+//Load seats available into the dropdown menu
 function populateSeatSelect(){
     const select = document.getElementById("seat_select");
     const helper = document.getElementById("seatHelper");

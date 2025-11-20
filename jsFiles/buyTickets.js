@@ -1,11 +1,18 @@
-let currentTickets = [];                                // Tickets returned by backend
-let selectedTicketIDs = new Set();                      // User-selected ticket IDs (no duplicates)
+/*
+Functions to load pages/dropdown menus, render event details + tickets,
+and buy tickets.
+*/
 
+let currentTickets = [];                                //Tickets returned by backend
+let selectedTicketIDs = new Set();                      //User-selected ticket IDs (no duplicates)
+
+//Retrieve query parameters from the URL
 function getQueryParam(name) {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
 }
 
+//Load the initial ticket buying page
 async function initBuyPage() {
     try {
         await loadEventDropdown();
@@ -13,12 +20,12 @@ async function initBuyPage() {
         const selectEl = document.getElementById("eventSelect");
         selectEl.addEventListener("change", onEventChange);
 
-        // If coming from events.html with ?event_id=...
+        //If coming from events.html with ?event_id=...
         const preselectedID = getQueryParam("event_id");
         if (preselectedID) {
             selectEl.value = preselectedID;
 
-            // Only proceed if that value actually exists in the dropdown
+            //Only proceed if that value actually exists in the dropdown
             if (selectEl.value === preselectedID) {
                 await onEventChange({ target: selectEl });
             }
@@ -29,6 +36,7 @@ async function initBuyPage() {
     }
 }
 
+//Load event dropdown men u
 async function loadEventDropdown() {
     try {
         showLoadingScreen();
@@ -61,6 +69,7 @@ async function loadEventDropdown() {
     }
 }
 
+//Triggers functions when an event status changes (i.e. a ticket is bought for an event)
 async function onEventChange(event) {
     const eID = event.target.value;
 
@@ -74,13 +83,14 @@ async function onEventChange(event) {
         return;
     }
 
-    // Load BOTH event details and available tickets
+    //Load BOTH event details and available tickets
     await Promise.all([
         loadEventDetails(eID),
         loadAvailableTickets(eID)
     ]);
 }
 
+//Load event details in the event details card
 async function loadEventDetails(eID) {
     try {
         const response = await fetch(`${apiBase}/api/events/${eID}`, {
@@ -101,6 +111,7 @@ async function loadEventDetails(eID) {
     }
 }
 
+//Visually displays event details in the event details card
 function renderEventDetails(event, ticketCounts) {
     const box = document.getElementById("eventDetails");
     if (!box) return;
@@ -131,6 +142,7 @@ function renderEventDetails(event, ticketCounts) {
     `;
 }
 
+//Fetch and load available tickets
 async function loadAvailableTickets(eID) {
     try {
         showLoadingScreen();
@@ -158,6 +170,7 @@ async function loadAvailableTickets(eID) {
     }
 }
 
+//Visually display the available tickets
 function renderTickets(tickets) {
     const tBody = document.querySelector("#ticketsTable tbody");
     tBody.innerHTML = "";
@@ -165,7 +178,7 @@ function renderTickets(tickets) {
     tickets.forEach(tick => {
         const tRow = document.createElement("tr");
 
-        // Checkbox column
+        //Checkbox column
         const checkboxTd = document.createElement("td");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -173,7 +186,7 @@ function renderTickets(tickets) {
         checkbox.addEventListener("change", onTicketToggle);
         checkboxTd.appendChild(checkbox);
 
-        // Other columns
+        //Other columns
         const seatTd = document.createElement("td");
         seatTd.textContent = `${tick.row_num || ''}-${tick.seat_number || tick.seat_id || ''}`;
 
@@ -196,6 +209,7 @@ function renderTickets(tickets) {
     });
 }
 
+//Tracks selected tickets
 function onTicketToggle(eventTicket) {
     const id = Number(eventTicket.target.value);
 
@@ -208,6 +222,7 @@ function onTicketToggle(eventTicket) {
     toggleBuyButton();
 }
 
+//Update running total cost counter
 function updateTotalDisplay() {
     const total = Array.from(selectedTicketIDs).reduce((sum, id) => {
         const tick = currentTickets.find(t => t.ticket_id === id);
@@ -218,6 +233,7 @@ function updateTotalDisplay() {
     if (totalEl) totalEl.textContent = formatCurrency(total);
 }
 
+//Toggles "buy" button (i.e. can't be pressed when tickets aren't selected)
 function toggleBuyButton() {
     const disabled = selectedTicketIDs.size === 0;
 
@@ -228,7 +244,7 @@ function toggleBuyButton() {
     if (bottomBtn) bottomBtn.disabled = disabled;
 }
 
-
+//Buys the selected tickets (POST request), redirects user to confirmatino page
 async function buySelected() {
     if (selectedTicketIDs.size === 0) return;
 
@@ -286,6 +302,7 @@ async function buySelected() {
     }
 }
 
+//Extracts order ID
 function extractOrderID(result) {
     if (!result || typeof result !== "object") return undefined;
 
@@ -301,6 +318,7 @@ function extractOrderID(result) {
     );
 }
 
+//Returns the latest order ID
 async function fetchLatestOrderID() {
     try {
         const response = await fetch(`${apiBase}/api/orders`, { credentials: "include" });

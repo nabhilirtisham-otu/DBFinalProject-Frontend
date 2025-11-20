@@ -1,5 +1,10 @@
+/*
+Loads, displays, and allows for deletion of user Orders
+*/
+
 let navConfigured = false;
 
+//Set variables to redirect users to appropriate pages/dashboards based on their role
 async function configureOrdersNav() {
     if (navConfigured) return;
 
@@ -73,6 +78,7 @@ async function loadOrders() {
     }
 }
 
+//Delete user Order
 async function deleteOrder(orderId){
     if (!confirm("Are you sure you want to delete this order? Tickets will become available again.")) return;
 

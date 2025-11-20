@@ -1,3 +1,8 @@
+/*
+Order confirmation page display order information after a a user has purchased
+a ticket.
+*/
+
 //Helper function to return query parameter values
 function getQueryParam(paraName){
     const queryParams = new URLSearchParams(window.location.search);        //Store and parse URL query string into key/value pairs
@@ -6,6 +11,7 @@ function getQueryParam(paraName){
 
 let navConfigured = false;
 
+//Set variables to redirect users to appropriate pages/dashboards based on their role
 async function setNavigationLinks() {
     if (navConfigured) return;
     try {

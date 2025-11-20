@@ -1,3 +1,7 @@
+<!--
+Page for seeing event tickets
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,7 @@
 
 <body onload="requireAuth(); initTicketsPage();">
 
-    <!-- Navbar -->
+    <!--Navbar-->
     <div class="navbar">
         <a href="orgDashboard.html">Dashboard</a>
 
@@ -20,22 +24,22 @@
     </div>
 
     <div class="main_body">
-    <!-- Page Title -->
+    <!--Page Title-->
     <h2 class="page-title">Ticket Management</h2>
 
-    <!-- Event Details -->
+    <!--Event Details-->
     <div class="event-details-card">
         <h3 id="eventTitle">Loading event...</h3>
         <p id="eventMeta"></p>
     </div>
 
-    <!-- Add Ticket Card -->
+    <!--Add Ticket Card-->
     <div class="ticket-card">
         <h3 class="ticket-title">Add Ticket</h3>
 
         <form id="ticketForm" class="form-layout">
             <select id="seat_select" required>
-                <option value="">-- Select Available Seat --</option>
+                <option value="">--Select Available Seat--</option>
             </select>
             <input type="number" id="seat_price" placeholder="Seat Price" required min="0" step="0.01">
             <small id="seatHelper" class="helper-text"></small>
@@ -44,7 +48,7 @@
         </form>
     </div>
 
-    <!-- Tickets Table Card -->
+    <!--Tickets Table Card-->
     <div class="ticket-card">
         <h3 class="ticket-title">Existing Tickets For This Event</h3>
 
@@ -65,7 +69,7 @@
         </div>
     </div>
     </div>
-    <!-- Scripts -->
+    <!--Scripts-->
     <script src="./jsFiles/config.js"></script>
     <script src="./jsFiles/auth.js"></script>
     <script src="./jsFiles/ui.js"></script>

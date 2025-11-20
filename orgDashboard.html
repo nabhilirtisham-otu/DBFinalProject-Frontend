@@ -1,16 +1,18 @@
+<!--
+Organizer dashboard page
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Event Organizer Dashboard</title>
-
-    <!-- Main site styles -->
     <link rel="stylesheet" href="./cssFiles/style.css">
 </head>
 
 <body onload="requireAuth(); loadOrganizerEvents();">
 
-    <!-- NAVBAR -->
+    <!--Navbar-->
     <div class="navbar">
         <a href="orgevents.html">Events</a>
 
@@ -21,13 +23,13 @@
         <button onclick="logout()">Logout</button>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!--Main content-->
     <div class="main_body">
 
         <h2 class="dashboard-title">Your Dashboard</h2>
 
-        <!-- Add Event button -->
-        <!-- Buttons Row -->
+        <!--Add Event button-->
+        <!--Buttons Row-->
     <div class="dashboard-buttons">
         <button class="action-btn" onclick="window.location.href='add-event.html'">
             Add New Event
@@ -44,7 +46,7 @@
 
         <h3 class="events-subtitle">Your Events</h3>
 
-        <!-- Event Table -->
+        <!--Event Table-->
         <div class="table-wrapper">
             <table id="eventTable">
                 <thead>
@@ -57,14 +59,13 @@
                     </tr>
                 </thead>
 
-                <!-- JS will populate this -->
                 <tbody id="eventTableBody"></tbody>
             </table>
         </div>
 
     </div>
 
-    <!-- Scripts -->
+    <!--Scripts-->
      <script src="./jsFiles/config.js"></script>
     <script src="./jsFiles/auth.js"></script>
     <script src="./jsFiles/ui.js"></script>

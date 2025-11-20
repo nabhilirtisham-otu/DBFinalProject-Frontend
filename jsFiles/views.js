@@ -1,3 +1,7 @@
+/*
+Display view information
+*/
+
 //Retrieves and displays view information
 async function runView(){
     const view = document.getElementById("viewSelect").value;       //Read view selected by user

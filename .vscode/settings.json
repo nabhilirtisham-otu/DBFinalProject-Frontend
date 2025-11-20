@@ -1,3 +1,4 @@
+//Port where live server is hosted
 {
     "liveServer.settings.port": 5501
 }

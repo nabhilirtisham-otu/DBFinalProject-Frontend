@@ -1,4 +1,6 @@
-<!--Display weather information-->
+<!--
+Display weather information for organizers
+-->
 
 <!DOCTYPE html>
 <html>
@@ -22,23 +24,23 @@
 
         <h2>Weather (OpenWeatherMap)</h2>
 
-        <!-- Input city -->
+        <!--Input city-->
         <div class="weather-input-box">
             <input id="cityInput" placeholder="Enter city (e.g., Toronto)" />
             <button onclick="fetchCityWeather()">Fetch Weather</button>
         </div>
 
-        <!-- Last fetched weather -->
+        <!--Last fetched weather-->
         <div id="lastFetched"></div>
 
-        <!-- Saved logs -->
+        <!--Saved logs-->
         <h3>Saved Logs</h3>
         <label for="cityFilter">Filter by City:</label>
         <select id="cityFilter" onchange="filterLogs()">
             <option value="">(all)</option>
         </select>
 
-        <!-- Table wrapper -->
+        <!--Table wrapper-->
         <div class="weather-table-wrapper">
             <table id="weatherTable">
                 <thead>
@@ -55,7 +57,7 @@
 
     </div>
 
-    <!-- Scripts -->
+    <!--Scripts-->
     <script src="./jsFiles/config.js"></script>
     <script src="./jsFiles/auth.js"></script>
     <script src="./jsFiles/ui.js"></script>
